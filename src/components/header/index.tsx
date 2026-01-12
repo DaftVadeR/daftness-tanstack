@@ -1,44 +1,19 @@
 import { Link } from '@tanstack/react-router';
+import { Image } from '@unpic/react';
 
-import Modal from './modal';
-
-import { useState } from 'react';
-
-import {
-  Menu,
-} from 'lucide-react';
-
-import { logoLinkStyle, containerStyle, navButtonStyle } from './styles';
+import logo from './dafticon.png';
+import { logoLinkStyle, containerStyle } from './styles';
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const [groupedExpanded, setGroupedExpanded] = useState<
-    Record<string, boolean>
-  >({});
-
   return (
     <>
       <header className={containerStyle}>
-        <button
-          // onClick={() => setIsOpen(true)}
-          className={navButtonStyle}
-          aria-label="Open menu"
-        >
-          <Menu size={24} />
-        </button>
         <h1 className={logoLinkStyle}>
-          <Link to="/">
-            Daftness
+          <Link to="/" title="Home" aria-label="Home">
+            <Image src={logo} alt="Web Developer - Daftness" width={80} height={80} />
           </Link>
         </h1>
-        <Modal
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          groupedExpanded={groupedExpanded}
-          setGroupedExpanded={setGroupedExpanded}
-        />
       </header>
     </>
-  )
+  );
 }

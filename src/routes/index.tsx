@@ -8,7 +8,7 @@ export const Route = createFileRoute('/')({
     meta: [
       {
         name: 'description',
-        content: 'The personal site of a developer who generally goes by the name \'daft\' when gaming, a Typescript and PHP Web developer in South Africa, who loves learning new programming languages.',
+        content: 'The personal site of a developer who generally goes by the name \'daft\' when gaming, a Typescript, PHP and new-to-Golang Web developer in South Africa, who loves learning new programming languages.',
       },
     ],
   }),
