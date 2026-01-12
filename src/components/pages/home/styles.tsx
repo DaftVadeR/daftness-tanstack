@@ -2,8 +2,7 @@ import { twMerge, } from 'tailwind-merge';
 
 // Write your styles in `styled` tag
 export const titleStyle = twMerge(`
-    text-5xl
-    color-gray-400
+    text-8xl
     mb-12
 `);
 
