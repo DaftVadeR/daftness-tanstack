@@ -1,9 +1,9 @@
 import { RefObject, Dispatch, ReactNode, SetStateAction, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 
-import { textStyle } from './styles';
+import { textStyle, characterStyle } from './styles';
 
-const CHARACTER_TIMEOUT = 100;
+const CHARACTER_TIMEOUT = 200;
 
 /*
  Important to store in a single variable as it will be altered a bit until a sweet spot is found between:
@@ -18,61 +18,53 @@ const STARTING_CHARACTER = 1;
 
 export const testId = 'animated-text';
 
-
-let timeoutId: number = -1;
+let intervalId: number = -1;
 
 const updateCharacterLength = (
-  ref: RefObject<string>,
-  numChars: number,
-  setNumChars: Dispatch<SetStateAction<number>>
+  textRef: RefObject<string>,
+  numCharsRef: RefObject<number>,
+  // Used to force a rerender, hence not just using numCharsRef.
+  setNumChars: Dispatch<SetStateAction<number>>,
 ) => (): boolean => {
-  console.log('Running updateCharacterLength', ref.current);
+  // console.log('Running updateCharacterLength', textRef.current);
 
-  const newNumChars = numChars + 1;
+  const newNumChars = numCharsRef.current + 1;
 
-  if (ref.current.length >= newNumChars) {
-    window.setTimeout(
-      updateCharacterLength(
-        ref,
-        newNumChars,
-        setNumChars,
-      ),
-      CHARACTER_TIMEOUT
-    );
-
+  if (textRef.current.length >= newNumChars) {
+    numCharsRef.current = newNumChars;
     setNumChars(newNumChars);
+
     return true;
   }
 
   // No more characters to show, stop the interval.
-
   return false;
 };
 
 const useTypingAnimation = (textFinal: string) => {
   const currentTextRef = useRef(textFinal);
+  const currentNumCharsRef = useRef(STARTING_CHARACTER);
 
   const [numChars, setNumChars] = useState(STARTING_CHARACTER);
 
   useEffect(() => {
     currentTextRef.current = textFinal;
+    currentNumCharsRef.current = STARTING_CHARACTER;
 
-    setNumChars(STARTING_CHARACTER);
-
-    console.error('Running hook');
+    // console.error('Running hook');
 
     // BEGIN the typing!
-    timeoutId = window.setTimeout(
+    intervalId = window.setInterval(
       updateCharacterLength(
         currentTextRef,
-        numChars,
+        currentNumCharsRef,
         setNumChars,
       ),
       CHARACTER_TIMEOUT
     );
 
     return () => {
-      window.clearTimeout(timeoutId);
+      window.clearInterval(intervalId);
     };
   }, [textFinal]);
 
@@ -96,19 +88,24 @@ export default function AnimateText({ text, children }: { /*children: React.Reac
 
   const { currentTextRef, numChars } = useTypingAnimation(textFinal);
 
-  console.log('text', numChars, text, children, children?.toString());
+  // console.log('text', numChars, text, children, children?.toString());
 
   return (
-    <span
-      className={clsx(textStyle)}
+    <div
       data-testid={testId}
     >
       {/* 
         Be vigilant of it being one character behind,
         due to the refs not triggering rerenders 
       */}
-      {currentTextRef.current.substring(0, numChars)}
-    </span>
+      {currentTextRef.current.substring(0, numChars).split('').map((character: string, index: number) => {
+        {/* console.log('character', character); */ }
+
+        return (
+          <span className={characterStyle} key={index}>{character}</span>
+        );
+      })}
+    </div>
   );
 };
 

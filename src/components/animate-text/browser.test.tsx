@@ -8,23 +8,32 @@ const testCharacterRender = (testId: string, copy: string, numChars: number = 0,
         render(<AnimateText text={copy} />);
     }
 
+    const lookFor = copy.substring(0, numChars);
+
     const span = screen.getByTestId(testId);
 
+    // if (span) {
+    //     console.log('found span', span);
+    //     console.log('found value', span.textContent);
+    //     console.log('look for', lookFor);
+    // }
+
     expect(span).toBeInTheDocument();
-    expect(span).toHaveTextContent(copy.substring(0, numChars));
+    expect(span).toHaveTextContent(lookFor);
 };
 
 describe('TextTypingAnimation', () => {
     beforeEach(() => {
-        vi.useFakeTimers();
+        // vi.useFakeTimers();
+        // vi.useRealTimers();
+
+        vi.useFakeTimers({
+            shouldAdvanceTime: true,   // auto-advances when promises/microtasks pending
+        });
     });
 
     afterEach(cleanup);
-
-    afterEach(() => {
-        vi.useRealTimers();
-        vi.clearAllTimers();
-    });
+    afterEach(vi.clearAllTimers);
 
     it('renders first character of \'test\' on first load', () => {
         const copy = 'test';
@@ -40,26 +49,23 @@ describe('TextTypingAnimation', () => {
     });
 
     it('renders two characters after interval period', async () => {
-        const copy = 'test';
+        const copy = 'test.';
 
-        render(<AnimateText text={copy} />);
+        render(<AnimateText>{copy}</AnimateText>);
 
-        vi.advanceTimersByTime(1000);
-
-        // vi.runAllTimers();
+        vi.advanceTimersByTime(900);
 
         await waitFor(() => {
-            testCharacterRender(testId, copy, 2, false);
+            testCharacterRender(testId, copy, 5, false);
         });
     });
 
     it('renders all characters after enough time has passed', async () => {
         const copy = 'Again.';
 
-        render(<AnimateText text={copy} />);
+        render(<AnimateText>{copy}</AnimateText>);
 
-        // vi.runAllTimers();
-        vi.advanceTimersByTime(6000);
+        vi.advanceTimersByTime(7000);
 
         await waitFor(() => {
             testCharacterRender(testId, copy, copy.length, false);

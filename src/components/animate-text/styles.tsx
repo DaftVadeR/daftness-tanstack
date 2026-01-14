@@ -1,3 +1,3 @@
 import { twMerge } from "tailwind-merge";
 
-export const textStyle = twMerge("animate-text-character");
+export const characterStyle = twMerge("animate-fade-in");
