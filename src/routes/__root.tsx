@@ -1,3 +1,5 @@
+// These comments are added by MOI. Nobody, or nomachine else.
+
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 
