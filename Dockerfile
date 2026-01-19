@@ -1,40 +1,58 @@
+# use the official Bun image
+# see all versions at https://hub.docker.com/r/oven/bun/tags
 FROM oven/bun:1 AS base
 WORKDIR /usr/src/app
 
-# ---------- install deps (cached) ----------
+# install dependencies into temp directory
+# this will cache them and speed up future builds
 FROM base AS install
 RUN mkdir -p /temp/dev
-COPY package.json bun.lockb /temp/dev/
+COPY package.json bun.lock /temp/dev/
 RUN cd /temp/dev && bun install --frozen-lockfile
 
+# install with --production (exclude devDependencies)
 RUN mkdir -p /temp/prod
-COPY package.json bun.lockb /temp/prod/
+COPY package.json bun.lock /temp/prod/
 RUN cd /temp/prod && bun install --frozen-lockfile --production
 
-# ---------- build ----------
-FROM base AS build
-COPY --from=install /temp/dev/node_modules ./node_modules
+# copy node_modules from temp directory
+# then copy all (non-ignored) project files into the image
+FROM base AS prerelease
+COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
+
+# # [optional] tests & build
 ENV NODE_ENV=production
+# RUN bun test
+# RUN bun run build
 RUN bun --bun vite build
+# RUN ls -la
+# RUN pwd
+# RUN ls -la .output
+# COPY .output .
 
-# ---------- runtime ----------
-FROM base AS runtime
-ENV NODE_ENV=production
+# copy production dependencies and source code into final image
+FROM base AS release
 
-# production deps only
-COPY --from=install /temp/prod/node_modules ./node_modules
+# RUN ls -la
 
-# copy the built output (THIS is what you run)
-COPY --from=build /usr/src/app/.output ./.output
+COPY --from=install /temp/prod/node_modules node_modules
+# COPY --from=prerelease /usr/src/app/index.ts .
+COPY --from=prerelease /usr/src/app/package.json .package.json
+COPY --from=prerelease /usr/src/app/.output .output
 
-# copy any runtime files your server might read at runtime
-# (only include if you actually need them)
-COPY --from=build /usr/src/app/package.json ./package.json
-COPY --from=build /usr/src/app/public ./public
-COPY --from=build /usr/src/app/dist ./dist
+# RUN ls -la
 
+# run the app
 USER bun
-EXPOSE 3000
+EXPOSE 3000/tcp
 
-CMD ["bun", "run", ".output/server/index.mjs"]
+# ENTRYPOINT [ "bun", "run", "start-server.ts" ]
+
+# RUN ls -la
+
+#CMD ["bun", "run", "start"]
+# CMD ["bun", "run", ".output/server/index.mjs"]
+
+# ENTRYPOINT [  "bun", "run", "start" ] 
+ENTRYPOINT [  "bun", "run", ".output/server/index.mjs" ] 
