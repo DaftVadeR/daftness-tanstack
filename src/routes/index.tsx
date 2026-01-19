@@ -3,6 +3,9 @@ import Home from '../components/pages/home';
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
+  headers: () => ({
+    "Cache-Control": "public, s-maxage=300, stale-while-revalidate=1800"
+  }),
   head: ({ params: _ }) => ({
     title: `daftness - Web Developer and -geek-`,
     meta: [

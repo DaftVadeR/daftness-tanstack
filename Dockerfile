@@ -1,38 +1,40 @@
-# use the official Bun image
-# see all versions at https://hub.docker.com/r/oven/bun/tags
 FROM oven/bun:1 AS base
 WORKDIR /usr/src/app
 
-# install dependencies into temp directory
-# this will cache them and speed up future builds
+# ---------- install deps (cached) ----------
 FROM base AS install
 RUN mkdir -p /temp/dev
-COPY package.json bun.lock /temp/dev/
+COPY package.json bun.lockb /temp/dev/
 RUN cd /temp/dev && bun install --frozen-lockfile
 
-# install with --production (exclude devDependencies)
 RUN mkdir -p /temp/prod
-COPY package.json bun.lock /temp/prod/
+COPY package.json bun.lockb /temp/prod/
 RUN cd /temp/prod && bun install --frozen-lockfile --production
 
-# copy node_modules from temp directory
-# then copy all (non-ignored) project files into the image
-FROM base AS prerelease
-COPY --from=install /temp/dev/node_modules node_modules
+# ---------- build ----------
+FROM base AS build
+COPY --from=install /temp/dev/node_modules ./node_modules
 COPY . .
-
-# # [optional] tests & build
 ENV NODE_ENV=production
-# RUN bun test
-RUN bun run build
+RUN bun --bun vite build
 
-# copy production dependencies and source code into final image
-FROM base AS release
-COPY --from=install /temp/prod/node_modules node_modules
-COPY --from=prerelease /usr/src/app/index.ts .
-COPY --from=prerelease /usr/src/app/package.json .
+# ---------- runtime ----------
+FROM base AS runtime
+ENV NODE_ENV=production
 
-# run the app
+# production deps only
+COPY --from=install /temp/prod/node_modules ./node_modules
+
+# copy the built output (THIS is what you run)
+COPY --from=build /usr/src/app/.output ./.output
+
+# copy any runtime files your server might read at runtime
+# (only include if you actually need them)
+COPY --from=build /usr/src/app/package.json ./package.json
+COPY --from=build /usr/src/app/public ./public
+COPY --from=build /usr/src/app/dist ./dist
+
 USER bun
-EXPOSE 3000/tcp
-ENTRYPOINT [ "bun", "run", "index.ts" ]
+EXPOSE 3000
+
+CMD ["bun", "run", ".output/server/index.mjs"]

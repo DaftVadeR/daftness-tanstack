@@ -1,7 +1,6 @@
 import { RefObject, Dispatch, ReactNode, SetStateAction, useEffect, useRef, useState } from "react";
-import clsx from "clsx";
 
-import { textStyle, characterStyle } from './styles';
+import { characterStyle } from './styles';
 
 const CHARACTER_TIMEOUT = 200;
 
