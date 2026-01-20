@@ -1,6 +1,9 @@
 services:
   app:
     build: .
+    environment: 
+      - HOST=0.0.0.0
+      - NITRO_HOST=0.0.0.0
     expose:
       - "3000"
     networks:
