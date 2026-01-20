@@ -1,11 +1,13 @@
 services:
   app:
     build: .
-    environment: 
-      - HOST=0.0.0.0
-      - NITRO_HOST=0.0.0.0
     expose:
       - "3000"
+    environment:
+      - NITRO_HOST=0.0.0.0
+      - NITRO_PORT=3000
+      - HOST=0.0.0.0
+      - PORT=3000
     networks:
       - dokploy-network
 
