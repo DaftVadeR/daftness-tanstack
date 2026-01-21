@@ -1,8 +1,9 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { containerStyle, innerContainerStyle } from "./styles";
+import { containerStyle, innerContainerStyle, lgStyle, mdStyle, smStyle } from "./styles";
 import { useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import clsx from "clsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,7 +13,35 @@ const ACTIVE_BORDER_COLOR2 = 'rgba(0, 0, 160, 0.8)';
 const INITIAL_BORDER_COLOR = 'rgba(255, 255, 255, 0.2)';
 const INITIAL_BORDER_COLOR2 = 'rgba(20, 20, 20, 0.2)';
 
-export default function HyprBox({ children, active1 = ACTIVE_BORDER_COLOR, active2 = ACTIVE_BORDER_COLOR2, initial1 = INITIAL_BORDER_COLOR, initial2 = INITIAL_BORDER_COLOR2 }: { children: React.ReactNode, active1?: string, active2?: string, initial?: string, initial2?: string }) {
+const SIZE_LG = 'lg' as const;
+const SIZE_MED = 'md' as const;
+const SIZE_SM = 'sm' as const;
+
+const SIZE_MAP: Record<typeof SIZE_LG | typeof SIZE_MED | typeof SIZE_SM, string> = {
+   [SIZE_LG]: lgStyle,
+   [SIZE_MED]: mdStyle,
+   [SIZE_SM]: smStyle,
+};
+
+export default function HyprBox(
+   {
+      children,
+      className,
+      active1 = ACTIVE_BORDER_COLOR,
+      active2 = ACTIVE_BORDER_COLOR2,
+      initial1 = INITIAL_BORDER_COLOR,
+      initial2 = INITIAL_BORDER_COLOR2,
+      size = SIZE_LG,
+   }: {
+      children: React.ReactNode,
+      className?: string,
+      active1?: string,
+      active2?: string,
+      initial1?: string,
+      initial2?: string,
+      size?: typeof SIZE_LG | typeof SIZE_MED | typeof SIZE_SM,
+   }
+) {
    const containerRef = useRef<HTMLDivElement>(null);
    const innerContainerRef = useRef<HTMLDivElement>(null);
 
@@ -39,7 +68,7 @@ export default function HyprBox({ children, active1 = ACTIVE_BORDER_COLOR, activ
             background: `linear-gradient(135deg, ${active1}, ${active2})`,
             scrollTrigger: {
                trigger: containerRef.current,
-               start: 'top bottom',
+               start: 'top 80%',
                once: true,
             },
          }
@@ -48,7 +77,7 @@ export default function HyprBox({ children, active1 = ACTIVE_BORDER_COLOR, activ
 
    return (
       <div
-         className={containerStyle}
+         className={clsx(containerStyle, className)}
          style={{
             background: `black`,
          }}
@@ -56,7 +85,7 @@ export default function HyprBox({ children, active1 = ACTIVE_BORDER_COLOR, activ
       >
          <div
             ref={innerContainerRef}
-            className={innerContainerStyle}
+            className={clsx(innerContainerStyle, SIZE_MAP[size])}
             style={{
                backgroundColor: `black`,
             }}
