@@ -1,14 +1,15 @@
 import { containerStyle, paragraphStyle, titleStyle } from './styles';
 import Layout from '../../layouts/main';
-// import AnimateTextGsapSimple from '@/components/animate-text-gsap';
-import AnimateTextGsapSimple from '@/components/animate-text-stagger';
+import AnimateTextStagger from '@/components/animate-text-stagger';
 
 export default function Home() {
     return (
         <Layout>
             <div className={containerStyle}>
-                <h2 className={titleStyle}><AnimateTextGsapSimple>Welcome to my site!</AnimateTextGsapSimple></h2>
-                <p className={paragraphStyle}>This is my site! It's super daft!</p>
+                <AnimateTextStagger>
+                    <h2 className={titleStyle}>Welcome to my site!</h2>
+                    <p className={paragraphStyle}>May the daftness be with you...</p>
+                </AnimateTextStagger>
             </div>
         </Layout>
     );

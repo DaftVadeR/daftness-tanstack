@@ -1,105 +1,78 @@
-import { useEffect, useRef, useState } from 'react';
+// This was the third attempt. Instead of relying on ChatGPT initially, I decided to do some research and found the stagger effect in the GSAP docs.
+// This worked, but had some limitations with the React GSAP API, so we changed it using delay().
+//
+// I added sequencing in the form of callbacks that fire when a line is done, that triggers the next step.
+// It's also refactored to be more structured and easy to navigate.
+//
+// The cursor is positioned correctly after each character, and only shows after the first character is animated, 
+// due to the weirdness that happens when transitioning the transform's x translation to a notably different value
+// to the starting one (0).
+//
+// None of the comments are typed by ChatGPT, be it this one, or the ones below.
 
-import gsap from 'gsap';
-import clsx from 'clsx';
+import { Children, ElementType, isValidElement, useEffect, useState, ReactNode } from 'react';
+import { getDirectText } from '@/util/react-nodes';
+import { TextLine } from './types';
+import Line from './line';
 
-import { useGSAP } from '@gsap/react';
-
-import { characterStyle, containerStyle, cursorStyle } from './styles';
-
-const CURSOR_CHARACTER = "▋";
-// const CLASS_ACTIVE_CHARACTER = "active-char";
-const CLASS_CHARACTER = ".stagger-char";
-
-const CursorBlink = ({ cursorRef, position }: { cursorRef: React.RefObject<null | HTMLDivElement>, position: number[] }) => {
-    if (position.length !== 2) {
-        return null;
-    }
-
-    return (
-        <span
-            aria-hidden="true"
-            ref={cursorRef}
-            className={clsx(cursorStyle, `left-[${position[0]}px] top-[${position[1]}px]`)}
-        >
-            {CURSOR_CHARACTER}
-        </span>
-    );
+const onDone = (nextStep: number, setStep: (step: number) => void) => () => {
+    setStep(nextStep);
 };
 
-export default function AnimateTextStagger({ children }: { children: string }) {
-    const [isMounted, setIsMounted] = useState(false);
-    const [cursorPosition, setCursorPosition] = useState([0, 0]);
-
-    const containerRef = useRef<HTMLDivElement>(null);
-    const cursorRef = useRef<HTMLDivElement>(null);
-
-    // const targets = gsap.utils.toArray<HTMLElement>(`.${CLASS_CHARACTER}`);
+export default function AnimateTextStagger({ children: childrenNotNormalized }: { children: ReactNode }) {
+    const [lines, setLines] = useState<TextLine[]>([]);
+    const [step, setStep] = useState(0);
 
     useEffect(() => {
-        setIsMounted(true);
-    }, []);
+        // i normalize children to make sure we have an array of lines, and within each, an array of characters comprising each word.
+        // I'm a fan of formalizing the data structure using custom types, to ensure that the data is structured adequately for the JSX. 
+        if (childrenNotNormalized) {
+            const children = Children.toArray(childrenNotNormalized).filter(isValidElement<HTMLElement>);
 
-    useGSAP(() => {
-        gsap.to(CLASS_CHARACTER, {
-            opacity: 1,
-            scale: 1,
-            visibility: 'visible',
-            display: 'inline-block',
+            // intentionally left out any resets of state vars, as I don't want the animation to reexecute.
+            if (children) {
+                const lines: TextLine[] = [];
 
-            stagger: {
-                each: 0.14,
-                onStart: function(this: gsap.core.Tween) {
-                    const el = (this as gsap.core.Tween).targets()[0] as HTMLElement;
-                    // document.querySelector(`.${CLASS_ACTIVE_CHARACTER}`)?.classList.remove(CLASS_ACTIVE_CHARACTER);
+                for (let i = 0; i < children.length; i++) {
+                    const child = children[i];
 
-                    console.log('on start', el);
+                    const text = getDirectText(child);
 
-                    // const el = target as HTMLSpanElement;
-                    console.log('Animating char:', el);
+                    lines.push({
+                        value: text,
+                        tag: child.type as ElementType,
+                        characters: text.split('').map((char) => ({
+                            letter: char,
+                            ref: null,
+                        })),
+                        className: child.props.className,
+                    } as TextLine);
+                }
 
-                    if (containerRef.current) {
-                        console.log('container ref exits');
-
-                        const charRect = el.getBoundingClientRect();
-                        const containerRect = containerRef.current.getBoundingClientRect();
-
-                        const newEndPosition = el.offsetWidth + charRect.width;
-                        const containerMaxWidth = containerRef.current.offsetWidth + containerRect.width;
-
-                        if (newEndPosition <= containerMaxWidth) {
-                            console.log('new position!', newEndPosition, containerMaxWidth);
-
-                            setCursorPosition([newEndPosition, 0]);
-                        }
-                    }
-                },
-                // onComplete: (target) => {
-                //
-                // },
-                amount: 2,
-            },
-        });
-    });
+                setLines(lines);
+            }
+        }
+    }, [childrenNotNormalized]);
 
     return (
-        <div className={containerStyle} ref={containerRef}>
-            {children.split('').map((char, index) => {
+        <>
+            {lines.map((line, lineIndex) => {
+                const followingStep = lineIndex + 1;
+
                 return (
-                    <span
-                        className={clsx(characterStyle, 'hidden invisible', CLASS_CHARACTER.substring(1))}
-                        key={index}
-                    // className="stagger-char inline-block opacity-0 scale-50"
-                    >
-                        {char}
-                    </span>
+                    <Line
+                        isActive={lineIndex === step}
+                        line={line}
+                        key={lineIndex} // line index used in case of duplicate lines, a rare but possible use case.
+
+                        // If there is an ensuing step, pass a callback to advance to it via the state setter. */ }
+                        onDone={lines.length > followingStep ? onDone(followingStep, setStep) : () => { }}
+                    />
                 );
+
             })}
-            {isMounted &&
-                <CursorBlink
-                    cursorRef={cursorRef}
-                    position={cursorPosition}
-                />}
-        </div>
+        </>
     );
 }
+
+
