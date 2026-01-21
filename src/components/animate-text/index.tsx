@@ -1,3 +1,8 @@
+// This was an initial version of the AnimateText component, using a non-GPU accelerated/animated typing animation effect.
+// It has some integration tests, and is very simple in that it can only have one child component/element, 
+// and because of that, the animations will all happen at once. There isn't a sequencing effect like with
+// the one being used across the site, V3 (in animate-text-stagger).
+
 import { RefObject, Dispatch, ReactNode, SetStateAction, useEffect, useRef, useState } from "react";
 
 import { characterStyle } from './styles';

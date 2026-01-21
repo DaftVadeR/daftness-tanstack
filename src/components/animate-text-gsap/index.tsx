@@ -1,3 +1,12 @@
+// Version 2. I had a discussion with ChatGPT regarding how to use GSAP for such a situation.
+//
+// It naturally gave me an overengineered solution for the GSAP calls, but I managed to get it working, 
+// though was unhappy about it. 
+//
+// It has the same shortcomings as version 1 with not being sequenced, but it has CSS-based
+// GPU-accelerated animations using GSAP and an animated cursor.
+//
+
 import gsap from "gsap";
 
 import { ElementType, useEffect, useMemo, useRef, useState } from "react";
