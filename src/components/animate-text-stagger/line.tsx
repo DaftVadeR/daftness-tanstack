@@ -1,21 +1,36 @@
 // It was fun using <line.tag/> to dynamically render different HTML elements per line. 
 // I've not done it before.
 
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { useEffect, useRef, useState } from "react";
-
-import { characterStyle, lineContainerStyle } from './styles';
-
-import { TextLine } from "./types";
-import CursorBlink from "./cursor";
+import { isValidElement, useCallback, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 
-const ANIM_LETTER_DELAY = 0.14;
-const ANIM_LETTER_TRANSITION = ANIM_LETTER_DELAY - 0.04;
+import { lineContainerStyle, lineStyle, iconStyle, iconPaddingStyle } from './styles';
 
-export default function Line({ isActive, line, onDone }: { isActive: boolean, line: TextLine, onDone: () => void }) {
+import { TextLine } from "./types";
+
+import CursorBlink from "./cursor";
+import WordSection from "./word";
+
+const Icon = ({ icon, line }: { icon: React.ReactNode, line: TextLine }) => {
+    return (<span className={clsx(iconStyle)} aria-hidden="true" aria-label={`Icon - ${line.value}`}>{icon}</span>);
+};
+
+export default function Line(
+    {
+        icon,
+        lineIndex,
+        isActive,
+        line,
+        onLineDone
+    }: {
+        icon?: React.ReactNode,
+        lineIndex: number,
+        isActive: boolean,
+        line: TextLine,
+        onLineDone: () => void
+    }) {
     const [isMounted, setIsMounted] = useState(false);
+    const [activeWord, setActiveWord] = useState(-1);
 
     const containerRef = useRef<HTMLDivElement>(null);
     const cursorRef = useRef<HTMLDivElement>(null);
@@ -26,77 +41,43 @@ export default function Line({ isActive, line, onDone }: { isActive: boolean, li
         setIsMounted(true);
     }, []);
 
-    useGSAP(() => {
-        // only start animations when active and refs are set.
-        if (!isActive || !containerRef.current) {
-            return;
+    const onWordDone = useCallback((wordIndex: number) => {
+        const newIndex = wordIndex + 1;
+
+        if (activeWord < newIndex) {
+            setActiveWord(newIndex);
         }
 
-        for (let i = 0; i < line.characters.length; i++) {
-            const char = line.characters[i];
-
-            if (!char.ref) {
-                return; // refs havent been set yet for some characters.
-            }
+        if (newIndex > line.words.length - 1) {
+            onLineDone();
         }
+    }, [activeWord, line.words.length, onLineDone]);
 
-        line.characters.forEach((char, index) => {
-            gsap.to(char.ref!.current, {
-                opacity: 1,
-                scale: 1,
-                visibility: 'visible',
-                display: 'inline-block',
-                duration: ANIM_LETTER_TRANSITION,
+    useEffect(() => {
+        if (isMounted && isActive && activeWord === -1) {
+            setActiveWord(0);
+        }
+    }, [isActive, isMounted, activeWord]);
 
-                // ease: "power2.out", // kept linear as its most natural
-
-                // Just needed for updating the blinking cursor's position on each character's staggered animation.
-                onStart: function() {
-                    if (!containerRef.current || !char.ref?.current) return;
-
-                    char.ref.current.style.display = 'inline-block';
-                    char.ref.current.style.visibility = 'visible';
-
-                    const containerRect = containerRef.current.getBoundingClientRect();
-                    const charRect = char.ref.current.getBoundingClientRect();
-
-                    const relativeX = charRect.left + charRect.width - containerRect.left + charRect.width;
-
-                    const relativeY = charRect.top - containerRect.top - charRect.height / 2;
-
-                    setCursorPosition([relativeX, relativeY]);
-                },
-
-                // Complete - start next line's animation.
-                onComplete: function() {
-                    if (index === line.characters.length - 1) {
-                        onDone();
-                    }
-                },
-            }).delay(index * ANIM_LETTER_DELAY);
-        });
-    }, [containerRef, isActive, line]);
+    const hasIcon = icon && isActive && isValidElement(icon);
 
     return (
         <div className={lineContainerStyle} ref={containerRef}>
-            <line.tag aria-label={line.value} className={line.className}>
-                {line.characters.map((char, index) => (
-                    <span
-                        ref={(el) => {
-                            if (el) {
-                                if (char.ref) {
-                                    char.ref.current = el;
-                                } else {
-                                    char.ref = { current: el };
-                                }
-                            }
-                        }}
-                        className={clsx(characterStyle, 'invisible')}
-                        key={index}
-                    >
-                        {char.letter}
-                    </span>
-                ))}
+            <line.tag aria-label={line.value} className={clsx(line.className, lineStyle, hasIcon ? iconPaddingStyle : null)}>
+                {hasIcon && <Icon icon={icon} line={line} />}
+                {line.words.map(
+                    (word, wordIndex) =>
+                        <WordSection
+                            wordIndex={wordIndex}
+                            key={wordIndex}
+                            word={word}
+                            onWordDone={onWordDone}
+                            lineIndex={lineIndex}
+                            isActive={isActive && (activeWord >= wordIndex)}
+                            containerRef={containerRef}
+                            setCursorPosition={setCursorPosition}
+                            cursorRef={cursorRef}
+                        />)}
                 {isMounted && isActive && cursorPosition[0] !== 0 &&
                     <CursorBlink
                         cursorRef={cursorRef}
@@ -106,3 +87,4 @@ export default function Line({ isActive, line, onDone }: { isActive: boolean, li
         </div>
     );
 }
+

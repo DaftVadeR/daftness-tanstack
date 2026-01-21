@@ -5,10 +5,15 @@ export type Character = {
     letter: string,
 };
 
+export type Word = {
+    ref: null | RefObject<null | HTMLElement>,
+    characters: Character[],
+};
+
 export type TextLine = {
     tag: ElementType,
     value: string,
-    characters: Character[],
+    words: Word[],
     className: string | undefined,
 };
 

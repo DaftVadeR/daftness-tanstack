@@ -18,8 +18,9 @@ import Line from './line';
 import { useGSAP } from '@gsap/react';
 import gsap from "gsap";
 import clsx from 'clsx';
-import { containerStyle } from './styles';
+import { containerStyle, ffBtnStyle } from './styles';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { FastForward } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,7 +35,6 @@ const normalizeChildrenToLines = (childrenNotNormalized: ReactNode): TextLine[] 
 
     // intentionally left out any resets of state vars, as I don't want the animation to reexecute.
     if (children) {
-
         for (let i = 0; i < children.length; i++) {
             const child = children[i];
 
@@ -43,10 +43,18 @@ const normalizeChildrenToLines = (childrenNotNormalized: ReactNode): TextLine[] 
             lines.push({
                 value: text,
                 tag: child.type as ElementType,
-                characters: text.split('').map((char) => ({
-                    letter: char,
+                words: text.split(/(\s+)/).map((word) => ({
+                    characters: word.split('').map((char) => ({
+                        letter: char,
+                        ref: null,
+                    })),
                     ref: null,
                 })),
+
+                // characters: text.split('').map((char) => ({
+                //     letter: char,
+                //     ref: null,
+                // })),
                 className: child.props.className,
             } as TextLine);
         }
@@ -56,7 +64,13 @@ const normalizeChildrenToLines = (childrenNotNormalized: ReactNode): TextLine[] 
 };
 
 
-export default function AnimateTextStagger({ children: childrenNotNormalized }: { children: ReactNode }) {
+export default function AnimateTextStagger({
+    children: childrenNotNormalized,
+    prependIcon,
+}: {
+    children: ReactNode,
+    prependIcon?: ReactNode,
+}) {
     const [step, setStep] = useState(0);
     const [inViewport, setInViewport] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -68,10 +82,12 @@ export default function AnimateTextStagger({ children: childrenNotNormalized }: 
 
         const trigger = ScrollTrigger.create({
             trigger: containerRef.current,
-            start: 'top bottom',
+            start: 'center bottom',
+
             onEnter: () => {
                 setInViewport(true);
             },
+
             once: true,
         });
 
@@ -95,15 +111,21 @@ export default function AnimateTextStagger({ children: childrenNotNormalized }: 
 
                 return (
                     <Line
+                        icon={lineIndex === 0 ? prependIcon : undefined}
                         isActive={inViewport && lineIndex === step}
                         line={line}
+                        lineIndex={lineIndex}
                         key={lineIndex} // line index used in case of duplicate lines, a rare but possible use case.
 
                         // If there is an ensuing step, pass a callback to advance to it via the state setter. */ }
-                        onDone={lines.length > followingStep ? onDone(followingStep, setStep) : () => { }}
+                        onLineDone={lines.length > followingStep ? onDone(followingStep, setStep) : () => { }}
                     />
                 );
             })}
+            {/* {step < lines.length && */}
+            {/*     <button type="button" aria-label="Fast forward" className={ffBtnStyle} aria-hidden="true"> */}
+            {/*         <FastForward size={40} color={'rgba(200, 90, 40, 0.5)'} /> */}
+            {/*     </button>} */}
         </div>
     );
 };
