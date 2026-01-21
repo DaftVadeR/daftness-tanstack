@@ -43,8 +43,6 @@ export default function Home() {
                         <p className={paragraphStyle}>May the daftness be with you...</p>
                     </AnimateTextStagger>
                 </HyprBox>
-
-
             </div>
         </Layout>
     );
