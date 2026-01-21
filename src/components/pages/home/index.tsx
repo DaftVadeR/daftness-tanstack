@@ -74,7 +74,8 @@ const Tidbits = () => {
                     <h3 className={subTitleStyle}>
                         My name is <strong>Ross</strong>, and I build things.
                     </h3>
-                    <p className={paragraphStyle}>I have been a Web developer for 16+ years, and been heavily involved in both back-end and front-end-related aspects of software and Web projects. I've built apps, games, Websites, bespoke CMSes and CRMs, and a lot more.</p>
+                    <p className={paragraphStyle}>I have been a Web developer for 16+ years, and been heavily involved in both back-end and front-end-related aspects of software and Web projects.</p>
+                    <p className={paragraphStyle}>I've built apps, games, Websites, bespoke CMSes and CRMs, and a lot more.</p>
                 </AnimateTextStagger>
             </HyprBox>
             <HyprBox

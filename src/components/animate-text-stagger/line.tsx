@@ -59,7 +59,7 @@ export default function Line(
         }
     }, [isActive, isMounted, activeWord]);
 
-    const hasIcon = icon && isActive && isValidElement(icon);
+    const hasIcon = icon && isValidElement(icon);
 
     return (
         <div className={lineContainerStyle} ref={containerRef}>
@@ -78,7 +78,7 @@ export default function Line(
                             setCursorPosition={setCursorPosition}
                             cursorRef={cursorRef}
                         />)}
-                {isMounted && isActive && cursorPosition[0] !== 0 &&
+                {isMounted && isActive && cursorPosition[0] !== 0 && lineIndex < line.words.length - 1 &&
                     <CursorBlink
                         cursorRef={cursorRef}
                         position={cursorPosition}
