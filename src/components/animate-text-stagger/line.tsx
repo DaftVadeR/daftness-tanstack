@@ -5,7 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
 
-import { characterStyle, containerStyle } from './styles';
+import { characterStyle, lineContainerStyle } from './styles';
 
 import { TextLine } from "./types";
 import CursorBlink from "./cursor";
@@ -16,6 +16,7 @@ const ANIM_LETTER_TRANSITION = ANIM_LETTER_DELAY - 0.04;
 
 export default function Line({ isActive, line, onDone }: { isActive: boolean, line: TextLine, onDone: () => void }) {
     const [isMounted, setIsMounted] = useState(false);
+
     const containerRef = useRef<HTMLDivElement>(null);
     const cursorRef = useRef<HTMLDivElement>(null);
 
@@ -46,6 +47,7 @@ export default function Line({ isActive, line, onDone }: { isActive: boolean, li
                 visibility: 'visible',
                 display: 'inline-block',
                 duration: ANIM_LETTER_TRANSITION,
+
                 // ease: "power2.out", // kept linear as its most natural
 
                 // Just needed for updating the blinking cursor's position on each character's staggered animation.
@@ -59,6 +61,7 @@ export default function Line({ isActive, line, onDone }: { isActive: boolean, li
                     const charRect = char.ref.current.getBoundingClientRect();
 
                     const relativeX = charRect.left + charRect.width - containerRect.left + charRect.width;
+
                     const relativeY = charRect.top - containerRect.top - charRect.height / 2;
 
                     setCursorPosition([relativeX, relativeY]);
@@ -75,7 +78,7 @@ export default function Line({ isActive, line, onDone }: { isActive: boolean, li
     }, [containerRef, isActive, line]);
 
     return (
-        <div className={containerStyle} ref={containerRef}>
+        <div className={lineContainerStyle} ref={containerRef}>
             <line.tag aria-label={line.value} className={line.className}>
                 {line.characters.map((char, index) => (
                     <span
@@ -88,7 +91,7 @@ export default function Line({ isActive, line, onDone }: { isActive: boolean, li
                                 }
                             }
                         }}
-                        className={clsx(characterStyle, 'hidden invisible')}
+                        className={clsx(characterStyle, 'invisible')}
                         key={index}
                     >
                         {char.letter}
