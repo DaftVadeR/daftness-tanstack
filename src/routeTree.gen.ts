@@ -9,8 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AnimateTextExamplesRouteImport } from './routes/animate-text-examples'
 import { Route as IndexRouteImport } from './routes/index'
 
+const AnimateTextExamplesRoute = AnimateTextExamplesRouteImport.update({
+  id: '/animate-text-examples',
+  path: '/animate-text-examples',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +25,39 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/animate-text-examples': typeof AnimateTextExamplesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/animate-text-examples': typeof AnimateTextExamplesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/animate-text-examples': typeof AnimateTextExamplesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/animate-text-examples'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/animate-text-examples'
+  id: '__root__' | '/' | '/animate-text-examples'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnimateTextExamplesRoute: typeof AnimateTextExamplesRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/animate-text-examples': {
+      id: '/animate-text-examples'
+      path: '/animate-text-examples'
+      fullPath: '/animate-text-examples'
+      preLoaderRoute: typeof AnimateTextExamplesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +70,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnimateTextExamplesRoute: AnimateTextExamplesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
