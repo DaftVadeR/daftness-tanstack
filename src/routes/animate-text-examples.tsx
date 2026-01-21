@@ -11,7 +11,7 @@ export const Route = createFileRoute('/animate-text-examples')({
     meta: [
       {
         name: 'description',
-        content: 'The personal site of a developer who generally goes by the name \'daft\' when gaming, a Typescript, PHP and new-to-Golang Web developer in South Africa, who loves learning new programming languages.',
+        content: 'Examples of React animated text components using different methods for rendering. Typing effect.',
       },
     ],
   }),

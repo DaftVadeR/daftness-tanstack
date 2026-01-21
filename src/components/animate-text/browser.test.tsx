@@ -12,12 +12,6 @@ const testCharacterRender = (testId: string, copy: string, numChars: number = 0,
 
     const span = screen.getByTestId(testId);
 
-    // if (span) {
-    //     console.log('found span', span);
-    //     console.log('found value', span.textContent);
-    //     console.log('look for', lookFor);
-    // }
-
     expect(span).toBeInTheDocument();
     expect(span).toHaveTextContent(lookFor);
 };

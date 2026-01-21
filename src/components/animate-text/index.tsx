@@ -30,8 +30,6 @@ const updateCharacterLength = (
   // Used to force a rerender, hence not just using numCharsRef.
   setNumChars: Dispatch<SetStateAction<number>>,
 ) => (): boolean => {
-  // console.log('Running updateCharacterLength', textRef.current);
-
   const newNumChars = numCharsRef.current + 1;
 
   if (textRef.current.length >= newNumChars) {
@@ -54,8 +52,6 @@ const useTypingAnimation = (textFinal: string) => {
   useEffect(() => {
     currentTextRef.current = textFinal;
     currentNumCharsRef.current = STARTING_CHARACTER;
-
-    // console.error('Running hook');
 
     // BEGIN the typing!
     intervalId = window.setInterval(
@@ -92,8 +88,6 @@ export default function AnimateText({ text, children }: { /*children: React.Reac
 
   const { currentTextRef, numChars } = useTypingAnimation(textFinal);
 
-  // console.log('text', numChars, text, children, children?.toString());
-
   return (
     <div
       data-testid={testId}
@@ -103,8 +97,6 @@ export default function AnimateText({ text, children }: { /*children: React.Reac
         due to the refs not triggering rerenders 
       */}
       {currentTextRef.current.substring(0, numChars).split('').map((character: string, index: number) => {
-        {/* console.log('character', character); */ }
-
         return (
           <span className={characterStyle} key={index}>{character}</span>
         );
