@@ -1,5 +1,10 @@
 services:
   app:
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:3000"]
+    #   interval: 10s
+    #   timeout: 5s
+    #   retries: 3
     build: .
     expose:
       - "3000"
