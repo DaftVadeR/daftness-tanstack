@@ -48,6 +48,8 @@ const capableLogos: Logo[] = [
     { name: 'Bevy', filename: 'bevy.svg' },
     { name: 'Fedora', filename: 'fedora.png' },
     { name: 'ChatGPT', filename: 'chatgpt.png' },
+    { name: 'Postgres', filename: 'postgres.webp' },
+    { name: 'MySQL', filename: 'mysql.svg' },
 ];
 
 const beginnersLogos: Logo[] = [
