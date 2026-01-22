@@ -8,7 +8,7 @@ export const iconPaddingStyle = twMerge("pl-14 relative");
 
 export const wordStyle = twMerge("inline-block whitespace-pre");
 
-export const cursorStyle = twMerge("animate-pulse absolute left-0 top-0 transition-transform duration-200");
+export const cursorStyle = twMerge("animate-pulse absolute left-0 top-0 transition-transform duration-100");
 
 export const lineContainerStyle = twMerge("block relative");
 

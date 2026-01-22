@@ -1,6 +1,6 @@
 import { twMerge } from "tailwind-merge";
 
-export const containerStyle = twMerge("p-4 flex items-center pt-8");
+export const containerStyle = twMerge("py-16 flex items-center justify-center");
 
 export const logoLinkStyle = twMerge(`
   ml-4 text-3xl md:text-4xl lg:text-7xl font-semibold bg-clip-text 

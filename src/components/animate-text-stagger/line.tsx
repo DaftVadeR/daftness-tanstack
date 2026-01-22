@@ -10,6 +10,7 @@ import { TextLine } from "./types";
 
 import CursorBlink from "./cursor";
 import WordSection from "./word";
+import { SPEED } from "../hypr-box/types";
 
 const Icon = ({ icon, line }: { icon: React.ReactNode, line: TextLine }) => {
     return (<span className={clsx(iconStyle)} aria-hidden="true" aria-label={`Icon - ${line.value}`}>{icon}</span>);
@@ -19,12 +20,14 @@ export default function Line(
     {
         icon,
         lineIndex,
+        speed,
         isActive,
         line,
         onLineDone
     }: {
         icon?: React.ReactNode,
         lineIndex: number,
+        speed: SPEED,
         isActive: boolean,
         line: TextLine,
         onLineDone: () => void
@@ -77,6 +80,7 @@ export default function Line(
                             containerRef={containerRef}
                             setCursorPosition={setCursorPosition}
                             cursorRef={cursorRef}
+                            speed={speed}
                         />)}
                 {isMounted && isActive && cursorPosition[0] !== 0 && lineIndex < line.words.length - 1 &&
                     <CursorBlink

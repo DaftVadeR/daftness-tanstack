@@ -18,9 +18,9 @@ import Line from './line';
 import { useGSAP } from '@gsap/react';
 import gsap from "gsap";
 import clsx from 'clsx';
-import { containerStyle, ffBtnStyle } from './styles';
+import { containerStyle } from './styles';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { FastForward } from 'lucide-react';
+import { SPEED, SPEED_FAST } from '../hypr-box/types';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -46,13 +46,9 @@ const normalizeChildrenToLines = (childrenNotNormalized: ReactNode): TextLine[] 
             for (let w = 0; w < splitWords.length; w++) {
                 const word = splitWords[w];
 
-                console.log('word:', `'${word}'`);
-
                 if (word === ' ') {
                     continue;
                 }
-
-                console.log('word split:', `'${word.split('')}'`);
 
                 words.push({
                     characters: word.split('').map((char) => ({
@@ -84,9 +80,11 @@ const normalizeChildrenToLines = (childrenNotNormalized: ReactNode): TextLine[] 
 export default function AnimateTextStagger({
     children: childrenNotNormalized,
     prependIcon,
+    speed = SPEED_FAST,
 }: {
     children: ReactNode,
     prependIcon?: ReactNode,
+    speed?: SPEED,
 }) {
     const [step, setStep] = useState(0);
     const [inViewport, setInViewport] = useState(false);
@@ -132,6 +130,7 @@ export default function AnimateTextStagger({
                         isActive={inViewport && lineIndex === step}
                         line={line}
                         lineIndex={lineIndex}
+                        speed={speed}
                         key={lineIndex} // line index used in case of duplicate lines, a rare but possible use case.
 
                         // If there is an ensuing step, pass a callback to advance to it via the state setter. */ }
@@ -139,6 +138,7 @@ export default function AnimateTextStagger({
                     />
                 );
             })}
+            {/* speed up effect - not yet implemented */}
             {/* {step < lines.length && */}
             {/*     <button type="button" aria-label="Fast forward" className={ffBtnStyle} aria-hidden="true"> */}
             {/*         <FastForward size={40} color={'rgba(200, 90, 40, 0.5)'} /> */}

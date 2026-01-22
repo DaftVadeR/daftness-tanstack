@@ -4,11 +4,19 @@ import { RefObject } from "react";
 import { Word } from "./types";
 import { characterStyle, wordStyle } from "./styles";
 import clsx from "clsx";
+import { SPEED, SPEED_FAST, SPEED_MID, SPEED_SLOW } from "../hypr-box/types";
 
 const ANIM_LETTER_DELAY = 0.10;
 const ANIM_LETTER_TRANSITION = ANIM_LETTER_DELAY - 0.04;
 
+const SPEED_MAP: Record<SPEED, number> = {
+    [SPEED_FAST]: 0.07,
+    [SPEED_MID]: 0.14,
+    [SPEED_SLOW]: 0.2,
+};
+
 export default function WordSection({
+    speed,
     word,
     wordIndex,
     lineIndex,
@@ -18,6 +26,7 @@ export default function WordSection({
     cursorRef,
     setCursorPosition,
 }: {
+    speed: SPEED,
     word: Word,
     wordIndex: number,
     lineIndex: number,
@@ -64,26 +73,23 @@ export default function WordSection({
                     char.ref.current.style.display = 'inline-block';
                     char.ref.current.style.visibility = 'visible';
 
-                    const containerRect = containerRef.current.getBoundingClientRect();
                     const charRect = char.ref.current.getBoundingClientRect();
-                    const cursorRect = cursorRef?.current?.getBoundingClientRect();
 
-                    const relativeX = charRect.left + charRect.width + (cursorRect?.width ?? charRect.width) * 0.75 - containerRect.left;
-
-                    const relativeY = charRect.top - containerRect.top - (cursorRect ? (cursorRect.height - charRect.height) / 2 : 0);
+                    // using offset as simpler - rect was giving issues due to not being relative.
+                    const relativeX = char.ref.current.offsetLeft + charRect.width * 3;
+                    const relativeY = char.ref.current.offsetTop;
 
                     setCursorPosition([relativeX, relativeY]);
                 },
 
-                // Complete - start next line's animation.
                 onComplete: function() {
                     if (characterIndex >= word.characters.length - 1) {
                         onWordDone(wordIndex);
                     }
                 },
-            }).delay(characterIndex * ANIM_LETTER_DELAY);
+            }).delay(characterIndex * SPEED_MAP[speed]);
         });
-    }, [containerRef, isActive, word, cursorRef]);
+    }, [containerRef, isActive, word, cursorRef, speed]);
 
     return (
         <span

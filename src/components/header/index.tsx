@@ -9,7 +9,7 @@ export default function Header() {
           Web Developer - Daftness
         </h1>
         <Link to="/" title="Home" aria-label="Home" className={logoLinkStyle}>
-          Daft Dev
+          DafT the Dev
         </Link>
       </header>
     </>

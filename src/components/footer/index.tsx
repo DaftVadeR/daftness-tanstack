@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { containerStyle, paragraphStyle } from './styles';
 
 export default function Footer() {
@@ -11,7 +12,7 @@ export default function Footer() {
       {/*     <a>Project links</a> */}
       {/*   </li> */}
       {/* </ul> */}
-      <p className={paragraphStyle}>All the contents are belongs to me</p>
+      <p className={clsx(paragraphStyle, 'font-bold text-black p-4 bg-white')}>{'{/* '}All the contents of this site are belongs to me. More coming soon!{' */}'}</p>
     </div>
   )
 }

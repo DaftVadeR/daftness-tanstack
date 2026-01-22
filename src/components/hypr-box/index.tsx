@@ -1,9 +1,14 @@
+
+import { useRef } from "react";
+import clsx from "clsx";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { containerStyle, innerContainerStyle, lgStyle, mdStyle, smStyle } from "./styles";
-import { useRef } from "react";
+
+import { containerStyle, innerContainerStyle } from "./styles";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import clsx from "clsx";
+
+import { SIZE, SIZE_LG, SIZE_MAP, SPEED, SPEED_MAP, SPEED_MID, SPEED_SLOW } from "./types";
+import { ArrowDown } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,33 +18,31 @@ const ACTIVE_BORDER_COLOR2 = 'rgba(0, 0, 160, 0.8)';
 const INITIAL_BORDER_COLOR = 'rgba(255, 255, 255, 0.2)';
 const INITIAL_BORDER_COLOR2 = 'rgba(20, 20, 20, 0.2)';
 
-const SIZE_LG = 'lg' as const;
-const SIZE_MED = 'md' as const;
-const SIZE_SM = 'sm' as const;
-
-const SIZE_MAP: Record<typeof SIZE_LG | typeof SIZE_MED | typeof SIZE_SM, string> = {
-   [SIZE_LG]: lgStyle,
-   [SIZE_MED]: mdStyle,
-   [SIZE_SM]: smStyle,
-};
-
 export default function HyprBox(
    {
       children,
+      id,
+      nextId,
       className,
+      speed = SPEED_SLOW,
       active1 = ACTIVE_BORDER_COLOR,
       active2 = ACTIVE_BORDER_COLOR2,
       initial1 = INITIAL_BORDER_COLOR,
       initial2 = INITIAL_BORDER_COLOR2,
       size = SIZE_LG,
+      showScroll = false,
    }: {
       children: React.ReactNode,
+      id?: string,
+      nextId?: string,
       className?: string,
       active1?: string,
       active2?: string,
       initial1?: string,
       initial2?: string,
-      size?: typeof SIZE_LG | typeof SIZE_MED | typeof SIZE_SM,
+      size?: SIZE,
+      speed?: SPEED,
+      showScroll?: boolean,
    }
 ) {
    const containerRef = useRef<HTMLDivElement>(null);
@@ -53,7 +56,7 @@ export default function HyprBox(
       gsap.fromTo(
          containerRef.current,
          {
-            scale: 0.8,
+            scale: 0.9,
             opacity: 0.2,
             duration: 0,
             translateY: '80px',
@@ -63,7 +66,7 @@ export default function HyprBox(
             scale: 1,
             opacity: 1,
             translateY: 0,
-            duration: 0.8,
+            duration: SPEED_MAP[speed],
             ease: 'bounce.out',
             background: `linear-gradient(135deg, ${active1}, ${active2})`,
             scrollTrigger: {
@@ -78,6 +81,7 @@ export default function HyprBox(
    return (
       <div
          className={clsx(containerStyle, className)}
+         id={id}
          style={{
             background: `black`,
          }}
@@ -92,6 +96,11 @@ export default function HyprBox(
          >
             {children}
          </div>
+         {showScroll && (
+            <a href={`#${nextId}`} className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm text-white/70 italic" aria-label="Scroll Down">
+               <ArrowDown className="animate-bounce" color={'var(--color-white)'} size={80} />
+            </a>
+         )}
       </div>
    );
 }

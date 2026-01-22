@@ -1,11 +1,11 @@
 import { twMerge, } from 'tailwind-merge';
 
 export const containerStyle = twMerge(`
-   rounded-xl relative p-0.5 pointer-events-none mb-6 md:mb-20 background-black bg-black
+   rounded-xl relative p-0.5 mb-6 md:mb-20 background-black bg-black
 `);
 
 export const innerContainerStyle = twMerge(`
-   rounded-[inherit] background-black bg-black min-h-full h-full
+   rounded-[inherit] background-black bg-black min-h-full h-full z-2 overflow-hidden
 `);
 
 export const smStyle = twMerge(`md:p-10 p-5`);
