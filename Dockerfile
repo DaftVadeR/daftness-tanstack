@@ -57,5 +57,10 @@ EXPOSE 3000/tcp
 # ENTRYPOINT [  "bun", "run", "start" ] 
 # ENTRYPOINT [  "bun", "run", ".output/server/index.mjs" ] 
 
+ENV NODE_ENV=production
+ENV NITRO_HOST=0.0.0.0
+ENV NITRO_PORT=3000
+
 ENV BUN_RUNTIME_TRANSPILER_CACHE_PATH=0
+
 ENTRYPOINT ["bun", "--bun", "run", ".output/server/index.mjs"]
