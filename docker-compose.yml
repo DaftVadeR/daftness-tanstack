@@ -1,5 +1,8 @@
 services:
   app:
+    deploy:
+      placement:
+        constraints: [node.role == manager]
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000"]
       interval: 10s
@@ -17,6 +20,9 @@ services:
       - dokploy-network
 
   nginx:
+    deploy:
+      placement:
+        constraints: [node.role == manager]
     image: nginx:alpine
     depends_on:
       - app
