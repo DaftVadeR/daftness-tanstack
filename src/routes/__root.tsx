@@ -81,7 +81,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         />
         <Scripts />
         { /* Cloudflare Web Analytics */}
-        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e32c25a87e9148198f60435cb9205a0b"}'></script>
+        {/* <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e32c25a87e9148198f60435cb9205a0b"}'></script> */}
         { /* End Cloudflare Web Analytics */}
       </body>
     </html>
