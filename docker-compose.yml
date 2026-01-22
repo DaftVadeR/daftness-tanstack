@@ -16,6 +16,9 @@ services:
       - NITRO_PORT=3000
       - HOST=0.0.0.0
       - PORT=3000
+      - NITRO_DEV=false
+      - NODE_ENV=production
+      - NITRO_PRESET=bun# Or bun if custom
     networks:
       - dokploy-network
 
