@@ -1,12 +1,12 @@
 import { twMerge } from "tailwind-merge";
 
-export const characterStyle = twMerge("opacity-0 scale-50 inline-block invisible whitespace-pre align-middle");
+export const characterStyle = twMerge("opacity-0 scale-50 inline-block invisible align-middle");
 
 export const iconStyle = twMerge("left-0 top-0 absolute animate-pulse");
 
 export const iconPaddingStyle = twMerge("pl-14 relative");
 
-export const wordStyle = twMerge("whitespace-nowrap inline-block leading-10 align-middle");
+export const wordStyle = twMerge("inline-block whitespace-pre");
 
 export const cursorStyle = twMerge("animate-pulse absolute left-0 top-0 transition-transform duration-200");
 
@@ -14,7 +14,7 @@ export const lineContainerStyle = twMerge("block relative");
 
 export const containerStyle = twMerge("");
 
-export const lineStyle = twMerge("whitespace-pre-wrap align-middle");
+export const lineStyle = twMerge("block whitespace-normal");
 
 export const ffBtnStyle = twMerge(`absolute right-0 bottom-0 mr-5 mb-5 hover:scale-110 transition-transform cursor-pointer pointer-events-auto hover:opacity-full`);
 

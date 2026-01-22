@@ -18,7 +18,7 @@ const REPLAY_ON_CHANGE = true;
 // Animation tuning
 const CHAR_FROM = { opacity: 0.25, scale: 0.4 };
 const CHAR_TO_POP = { opacity: 0.65, scale: 1.25, duration: 0.18, ease: "back.out(2.2)" };
-const CHAR_TO_SETTLE = { scale: 1, duration: 0.14, opacity: 1, ease: "power2.out" };
+const CHAR_TO_SETTLE = { scale: 1, duration: 0.1, opacity: 1, ease: "power2.out" };
 const CURSOR_BLINK = { opacity: 0, duration: 0.5, ease: "none", repeat: -1, yoyo: true };
 
 type AnimatedTextProps = {

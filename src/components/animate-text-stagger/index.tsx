@@ -40,16 +40,33 @@ const normalizeChildrenToLines = (childrenNotNormalized: ReactNode): TextLine[] 
 
             const text = getDirectText(child);
 
-            lines.push({
-                value: text,
-                tag: child.type as ElementType,
-                words: text.split(/(\s+)/).map((word) => ({
+            const words = [];
+            const splitWords = text.split(/(\s+)/);
+
+            for (let w = 0; w < splitWords.length; w++) {
+                const word = splitWords[w];
+
+                console.log('word:', `'${word}'`);
+
+                if (word === ' ') {
+                    continue;
+                }
+
+                console.log('word split:', `'${word.split('')}'`);
+
+                words.push({
                     characters: word.split('').map((char) => ({
                         letter: char,
                         ref: null,
                     })),
                     ref: null,
-                })),
+                });
+            };
+
+            lines.push({
+                value: text,
+                tag: child.type as ElementType,
+                words,
 
                 // characters: text.split('').map((char) => ({
                 //     letter: char,

@@ -69,7 +69,7 @@ export default function Line(
                     (word, wordIndex) =>
                         <WordSection
                             wordIndex={wordIndex}
-                            key={wordIndex}
+                            key={`${lineIndex}_${wordIndex}`}
                             word={word}
                             onWordDone={onWordDone}
                             lineIndex={lineIndex}

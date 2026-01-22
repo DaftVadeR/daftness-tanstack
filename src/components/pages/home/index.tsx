@@ -72,7 +72,7 @@ const Tidbits = () => {
                 active2='rgba(200, 0, 40, 0.8)'
                 className='flex-1'
             >
-                <AnimateTextStagger prependIcon={<Keyboard size={40} color={'rgba(80, 40, 120, 0.8)'} />}>
+                <AnimateTextStagger prependIcon={<Keyboard size={42} color={'rgba(80, 40, 120, 0.8)'} />}>
                     <h3 className={subTitleStyle}>
                         My name is <strong>Ross</strong>, and I build things.
                     </h3>
@@ -84,7 +84,7 @@ const Tidbits = () => {
                 size='md'
                 className='flex-1'
             >
-                <AnimateTextStagger prependIcon={<SquareCode size={40} color={'rgba(200, 120, 50, 0.8)'} />}>
+                <AnimateTextStagger prependIcon={<SquareCode size={42} color={'rgba(200, 120, 50, 0.8)'} />}>
                     <h3 className={subTitleStyle}>I enjoy learning programming languages.</h3>
                     <p className={paragraphStyle}>I've learnt a number of languages, frameworks, CMSes, and program design paradigms. I've been heavily focused on higher level langauges and Web technologies for most of my career, but am investing time into learning lower level languages and their associated concepts, such as memory management, sorting algorithms, and data structures.</p>
                 </AnimateTextStagger>

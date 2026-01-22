@@ -88,7 +88,7 @@ export default function WordSection({
     return (
         <span
             className={wordStyle}
-            key={`${lineIndex}_${wordIndex}`}
+            key={`word_${lineIndex}_${wordIndex}`}
             ref={(el) => {
                 if (el) {
                     if (word.ref) {
@@ -111,11 +111,12 @@ export default function WordSection({
                         }
                     }}
                     className={clsx(characterStyle, 'invisible')}
-                    key={`${lineIndex}_${wordIndex}_${charIndex}`}
+                    key={`char_${lineIndex}_${wordIndex}_${charIndex}`}
                 >
                     {char.letter}
                 </span>
             ))}
+            {word.characters.length > 0 ? ' ' : ''}
         </span>
     );
 };
