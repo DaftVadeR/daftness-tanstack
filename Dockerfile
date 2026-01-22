@@ -55,4 +55,7 @@ EXPOSE 3000/tcp
 # CMD ["bun", "run", ".output/server/index.mjs"]
 
 # ENTRYPOINT [  "bun", "run", "start" ] 
-ENTRYPOINT [  "bun", "run", ".output/server/index.mjs" ] 
+# ENTRYPOINT [  "bun", "run", ".output/server/index.mjs" ] 
+
+ENV BUN_RUNTIME_TRANSPILER_CACHE_PATH=0
+ENTRYPOINT ["bun", "--bun", "run", ".output/server/index.mjs"]
