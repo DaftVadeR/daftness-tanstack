@@ -20,7 +20,7 @@ export default function Intro() {
 
                 <p className={clsx(paragraphStyle, 'text-purple-600')}>{`{/* I use Neovim & Hyprland btw. */}`}</p>
 
-                <p className={paragraphStyle}>My name is Ross D, and I'm a web/software developer based out of South Africa.</p>
+                <p className={paragraphStyle}>My name is Ross D, and I'm a Web/software developer based out of South Africa.</p>
             </AnimateTextStagger>
             <LinkSelector
                 links={links}

@@ -18,7 +18,7 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'Web Developer with a daft personality.',
+        title: 'Ross D - NextJS, Typescript and Golang Web Developer.',
       },
     ],
     links: [
