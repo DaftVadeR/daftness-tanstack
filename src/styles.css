@@ -54,6 +54,7 @@ code {
 
 @theme {
   --animate-fade-in: fade-in 1s ease-in forwards;
+  --animate-fade-in-out: fade-in-out 3.5s ease-in-out forwards;
 
   @keyframes fade-in {
     from {
@@ -62,6 +63,29 @@ code {
 
     to {
       opacity: 1;
+    }
+  }
+
+  @keyframes fade-in-out {
+    0% {
+      opacity: 0;
+    }
+
+    1% {
+      opacity: 0;
+    }
+
+    20% {
+      opacity: 1;
+    }
+
+    90% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+      visibleity: hidden;
     }
   }
 }

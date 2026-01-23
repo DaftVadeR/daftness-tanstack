@@ -1,12 +1,13 @@
 import Layout from '../../layouts/main';
 
 import {
-    containerStyle
+    containerStyle,
 } from './styles';
 
 import Proficiencies from './proficiencies';
 import Tidbits from './tidbits';
 import Intro from './intro';
+import MatrixWithButton from './matrix-with-button';
 
 export const links = [
     { href: '#about-me', label: 'About Me' },
@@ -20,6 +21,7 @@ export default function Home() {
                 <Intro />
                 <Tidbits />
                 <Proficiencies />
+                <MatrixWithButton />
             </div>
         </Layout>
     );
