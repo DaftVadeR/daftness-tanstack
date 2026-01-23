@@ -1,13 +1,12 @@
-
 import { useRef } from "react";
 import clsx from "clsx";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-import { containerStyle, innerContainerStyle } from "./styles";
+import { arrowStyle, containerStyle, innerContainerStyle, scrollBtnStyle } from "./styles";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import { SIZE, SIZE_LG, SIZE_MAP, SPEED, SPEED_MAP, SPEED_MID, SPEED_SLOW } from "./types";
+import { SIZE, SIZE_LG, SIZE_MAP, SPEED, SPEED_MAP, SPEED_SLOW } from "./types";
 import { ArrowDown } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -17,6 +16,37 @@ const ACTIVE_BORDER_COLOR2 = 'rgba(0, 0, 160, 0.8)';
 
 const INITIAL_BORDER_COLOR = 'rgba(255, 255, 255, 0.2)';
 const INITIAL_BORDER_COLOR2 = 'rgba(20, 20, 20, 0.2)';
+
+const animateFrom = (
+   initial1: string,
+   initial2: string,
+) => ({
+   scale: 0.9,
+   opacity: 0.2,
+   duration: 0,
+   translateY: '80px',
+   background: `linear-gradient(135deg, ${initial1}, ${initial2})`,
+});
+
+
+const animateTo = (
+   containerRef: React.RefObject<HTMLElement | null>,
+   speed: SPEED,
+   active1: string,
+   active2: string,
+) => ({
+   scale: 1,
+   opacity: 1,
+   translateY: 0,
+   duration: SPEED_MAP[speed],
+   ease: 'bounce.out',
+   background: `linear-gradient(135deg, ${active1}, ${active2})`,
+   scrollTrigger: {
+      trigger: containerRef.current,
+      start: 'top 80%',
+      once: true,
+   },
+});
 
 export default function HyprBox(
    {
@@ -55,26 +85,16 @@ export default function HyprBox(
 
       gsap.fromTo(
          containerRef.current,
-         {
-            scale: 0.9,
-            opacity: 0.2,
-            duration: 0,
-            translateY: '80px',
-            background: `linear-gradient(135deg, ${initial1}, ${initial2})`,
-         },
-         {
-            scale: 1,
-            opacity: 1,
-            translateY: 0,
-            duration: SPEED_MAP[speed],
-            ease: 'bounce.out',
-            background: `linear-gradient(135deg, ${active1}, ${active2})`,
-            scrollTrigger: {
-               trigger: containerRef.current,
-               start: 'top 80%',
-               once: true,
-            },
-         }
+         animateFrom(
+            initial1,
+            initial2,
+         ),
+         animateTo(
+            containerRef,
+            speed,
+            active1,
+            active2,
+         ),
       );
    }, [containerRef]);
 
@@ -97,11 +117,11 @@ export default function HyprBox(
             {children}
          </div>
          {showScroll && (
-            <a href={`#${nextId}`} className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm text-white/70 italic" aria-label="Scroll Down">
-               <ArrowDown className="animate-bounce" color={'var(--color-white)'} size={80} />
+            <a href={`#${nextId}`} className={scrollBtnStyle} aria-label="Scroll Down">
+               <ArrowDown className={arrowStyle} color={'var(--color-white)'} size={80} />
             </a>
          )}
       </div>
    );
-}
+};
 

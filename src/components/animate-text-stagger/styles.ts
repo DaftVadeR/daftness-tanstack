@@ -4,7 +4,7 @@ export const characterStyle = twMerge("opacity-0 scale-50 inline-block invisible
 
 export const iconStyle = twMerge("left-0 top-0 absolute animate-pulse");
 
-export const iconPaddingStyle = twMerge("pl-14 relative");
+export const iconPaddingStyle = twMerge("pt-1.5 md:pt-0 pl-14 relative");
 
 export const wordStyle = twMerge("inline-block whitespace-pre");
 

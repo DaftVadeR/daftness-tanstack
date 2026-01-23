@@ -5,7 +5,7 @@ export const containerStyle = twMerge(`
 `);
 
 export const contentStyle = twMerge(`
-    w-full lg:px-20 text-center flex-grow
+    w-full px-5 lg:px-20 text-center flex-grow
 `);
 
 export const headerStyle = twMerge(`

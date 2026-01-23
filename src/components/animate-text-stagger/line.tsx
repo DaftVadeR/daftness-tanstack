@@ -1,5 +1,5 @@
 // It was fun using <line.tag/> to dynamically render different HTML elements per line. 
-// I've not done it before.
+// I've not done it before in TS.
 
 import { isValidElement, useCallback, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
@@ -36,7 +36,7 @@ export default function Line(
     const [activeWord, setActiveWord] = useState(-1);
 
     const containerRef = useRef<HTMLDivElement>(null);
-    const cursorRef = useRef<HTMLDivElement>(null);
+    const cursorRef = useRef<HTMLSpanElement>(null);
 
     const [cursorPosition, setCursorPosition] = useState([0, 0]);
 

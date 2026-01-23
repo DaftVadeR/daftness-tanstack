@@ -35,18 +35,18 @@ code {
 @keyframes text-flow {
   0% {
     background-image: linear-gradient(to bottom,
-        rgba(120, 30, 200, 0.8) 0%,
-        rgba(40, 10, 100, 0.8) 40%,
-        rgba(120, 30, 200, 0.8) 100%);
+        rgba(120, 30, 200, 1) 0%,
+        rgba(40, 10, 100, 1) 40%,
+        rgba(120, 30, 200, 1) 100%);
 
     background-position: 0% 0%;
   }
 
   100% {
     background-image: linear-gradient(to bottom,
-        rgba(120, 30, 200, 0.8) 0%,
-        rgba(40, 10, 100, 0.8) 40%,
-        rgba(120, 30, 200, 0.8) 100%);
+        rgba(120, 30, 200, 1) 0%,
+        rgba(40, 10, 100, 1) 40%,
+        rgba(120, 30, 200, 1) 100%);
 
     background-position: 0% 125%;
   }

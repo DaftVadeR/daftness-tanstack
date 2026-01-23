@@ -5,7 +5,7 @@ export const titleStyle = twMerge(`
 `);
 
 export const subTitleStyle = twMerge(`
-   mb-12 text-2xl sm:text-3xl md:text-4xl leading-12
+   mb-12 text-2xl sm:text-3xl md:text-4xl leading-8 md:leading-12
 `);
 
 export const smallTitleStyle = twMerge(`
@@ -13,7 +13,11 @@ export const smallTitleStyle = twMerge(`
 `);
 
 export const paragraphStyle = twMerge(`
-   text-lg sm:text-xl md:text-2xl leading-10 mb-8
+   text-lg sm:text-xl md:text-2xl leading-8 md:leading-10 mb-8
+`);
+
+export const smallParagraphStyle = twMerge(`
+   text-md sm:text-lg md:text-xl leading-8 mb-8
 `);
 
 export const containerStyle = twMerge(`

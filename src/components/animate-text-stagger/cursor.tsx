@@ -4,7 +4,7 @@ import { cursorStyle } from "./styles";
 
 const CURSOR_CHARACTER = "▋";
 
-export default function CursorBlink({ cursorRef, position }: { cursorRef: RefObject<null | HTMLDivElement>, position: number[] }) {
+export default function CursorBlink({ cursorRef, position }: { cursorRef: RefObject<null | HTMLSpanElement>, position: number[] }) {
     if (position.length !== 2) {
         return null;
     }

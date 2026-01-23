@@ -9,11 +9,11 @@ export const logoStyle = twMerge(`
 `);
 
 export const logoListItemStyle = twMerge(`
-   inline-flex mb-4 basis-1/2 md:basis-auto md:mr-4 justify-center items-center
+   inline-flex mb-4 md:mb-6 basis-1/2 md:basis-auto mr-0 md:mr-4 justify-center items-center
 `);
 
 export const logoListStyle = twMerge(`
-   flex flex-row flex-wrap align-middle mb-12 md:justify-left md:align-left md:items-left
+   flex flex-row flex-wrap align-middle mb-10 md:mb-12 md:justify-left md:align-left md:items-left -mx-6
 `);
 
 

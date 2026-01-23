@@ -31,8 +31,8 @@ export default function WordSection({
     wordIndex: number,
     lineIndex: number,
     isActive: boolean,
-    containerRef: null | RefObject<HTMLElement | null>,
-    cursorRef: null | RefObject<HTMLElement | null>,
+    containerRef: null | RefObject<HTMLDivElement | null>,
+    cursorRef: null | RefObject<HTMLSpanElement | null>,
     onWordDone: (wordIndex: number) => void,
     setCursorPosition: (pos: [number, number]) => void,
 }) {
