@@ -28,7 +28,7 @@ export default function Tidbits() {
                     <h3 className={subTitleStyle}>
                         My name is <strong>Ross</strong>, and I build things.
                     </h3>
-                    <p className={paragraphStyle}>I have been a Web developer for 16+ years, and been heavily involved in both back-end and front-end-related aspects of software and Web projects.</p>
+                    <p className={paragraphStyle}>I have been a Web developer for 16+ years, and heavily involved in both back-end and front-end-related aspects of software and Web development.</p>
                     <p className={paragraphStyle}>I've built apps, games, Websites, bespoke CMSes and CRMs, and a lot more.</p>
                     <p className={paragraphStyle}>I love creating polished user experiences, and gladly undertake whatever is necessary to make the concept come to life.</p>
                 </AnimateTextStagger>
