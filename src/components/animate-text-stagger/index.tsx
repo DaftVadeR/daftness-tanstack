@@ -12,7 +12,7 @@
 
 import { Children, ElementType, isValidElement, useState, ReactNode, useRef } from 'react';
 import { getDirectText } from '@/util/react-nodes';
-import { TextLine } from './types';
+import { SPEED, SPEED_FASTEST, TextLine } from './types';
 
 import Line from './line';
 import { useGSAP } from '@gsap/react';
@@ -20,7 +20,6 @@ import gsap from "gsap";
 import clsx from 'clsx';
 import { containerStyle } from './styles';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SPEED, SPEED_FAST } from '../hypr-box/types';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -80,7 +79,7 @@ const normalizeChildrenToLines = (childrenNotNormalized: ReactNode): TextLine[] 
 export default function AnimateTextStagger({
     children: childrenNotNormalized,
     prependIcon,
-    speed = SPEED_FAST,
+    speed = SPEED_FASTEST,
 }: {
     children: ReactNode,
     prependIcon?: ReactNode,

@@ -8,6 +8,8 @@ import { Logo } from "./types";
 import { logoListItemStyle, logoListStyle, logoStyle, proficienciesStyle } from "./styles";
 import { smallTitleStyle, subTitleStyle } from "../styles";
 
+import { SPEED_FAST } from "@/components/hypr-box/types";
+
 const proficientLogos: Logo[] = [
     { name: 'JavaScript', filename: 'javascript.png' },
     { name: 'Typescript', filename: 'typescript.png' },
@@ -73,7 +75,7 @@ export default function Proficiencies() {
             className={proficienciesStyle}
             active1='rgba(80, 100, 100, 0.8)'
             active2='rgba(140, 20, 150, 0.8)'
-            size='lg'
+            size={SPEED_FAST}
             id='languages-and-tools'
         >
             <AnimateTextStagger>

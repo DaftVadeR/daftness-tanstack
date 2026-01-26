@@ -6,11 +6,10 @@ import clsx from "clsx";
 
 import { lineContainerStyle, lineStyle, iconStyle, iconPaddingStyle } from './styles';
 
-import { TextLine } from "./types";
+import { SPEED, TextLine } from "./types";
 
 import CursorBlink from "./cursor";
 import WordSection from "./word";
-import { SPEED } from "../hypr-box/types";
 
 const Icon = ({ icon, line }: { icon: React.ReactNode, line: TextLine }) => {
     return (<span className={clsx(iconStyle)} aria-hidden="true" aria-label={`Icon - ${line.value}`}>{icon}</span>);

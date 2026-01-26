@@ -4,6 +4,7 @@ import LinkSelector from "../link-selector";
 import { paragraphStyle, smallParagraphStyle, titleStyle } from "../styles";
 import clsx from "clsx";
 import { links } from "..";
+import { SPEED_SLOW } from "@/components/hypr-box/types";
 
 export default function Intro() {
     return (
@@ -11,11 +12,9 @@ export default function Intro() {
             showScroll
             nextId={links[0].href.substring(1)}
             // id={links[0].href.substring(1)}
-            speed='sm'
+            speed={SPEED_SLOW}
         >
-            <AnimateTextStagger
-                speed="lg"
-            >
+            <AnimateTextStagger>
                 <h2 className={titleStyle}>Welcome to my little corner of the Internet.</h2>
 
                 <p className={clsx(smallParagraphStyle, 'text-purple-600')}>{`{/* I use Neovim & Hyprland btw. */}`}</p>

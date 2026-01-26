@@ -3,6 +3,7 @@ import { paragraphStyle, splitterStyle, subTitleStyle } from "../styles";
 import AnimateTextStagger from "@/components/animate-text-stagger";
 import { Keyboard, SquareCode } from "lucide-react";
 import { links } from "..";
+import { SIZE_MD } from "@/components/hypr-box/types";
 
 export default function Tidbits() {
     return (
@@ -11,7 +12,7 @@ export default function Tidbits() {
             id={links[0].href.substring(1)}
         >
             <HyprBox
-                size='md'
+                size={SIZE_MD}
                 active1='rgba(190, 80, 30,0.8)'
                 active2='rgba(200, 0, 40, 0.8)'
                 className='flex-1'
@@ -33,7 +34,7 @@ export default function Tidbits() {
                 </AnimateTextStagger>
             </HyprBox>
             <HyprBox
-                size='md'
+                size={SIZE_MD}
                 className='flex-1'
                 active1='rgba(30, 190, 30,0.8)'
                 active2='rgba(0, 30, 190, 0.8)'

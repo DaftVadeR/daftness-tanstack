@@ -1,22 +1,12 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { RefObject } from "react";
-import { Word } from "./types";
 import { characterStyle, wordStyle } from "./styles";
 import clsx from "clsx";
-import { SPEED, SPEED_FAST, SPEED_MID, SPEED_SLOW } from "../hypr-box/types";
-
-const ANIM_LETTER_DELAY = 0.10;
-const ANIM_LETTER_TRANSITION = ANIM_LETTER_DELAY - 0.04;
-
-const SPEED_MAP: Record<SPEED, number> = {
-    [SPEED_FAST]: 0.07,
-    [SPEED_MID]: 0.14,
-    [SPEED_SLOW]: 0.2,
-};
+import { SPEED, ANIM_LETTER_TRANSITION, SPEED_FASTEST, Word, SPEED_MAP } from "./types";
 
 export default function WordSection({
-    speed,
+    speed = SPEED_FASTEST,
     word,
     wordIndex,
     lineIndex,
