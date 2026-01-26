@@ -23,11 +23,12 @@ export default function MatrixWithButton() {
                     </button>}
                 {isMatrixVisible &&
                     <h5 className={titleStyle}>
-                        Wow. You actually pressed it. You crazy person, you.
+                        {/* Wow. You actually pressed it. You crazy person, you. */}
+                        Coming soon...
                     </h5>}
             </div>
 
-            {isMatrixVisible && 'Coming soon...'} {/*<MatrixGemini />}*/}
+            {/* {isMatrixVisible && <MatrixGemini />} */}
         </HyprBox>
     );
 };
