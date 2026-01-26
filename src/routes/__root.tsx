@@ -20,7 +20,12 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'Ross D - NextJS, Typescript and Golang Web Developer.',
+        title: 'The DafT Dev, also known as Ross D',
+      },
+      {
+        name: 'description',
+        content:
+          'The DafT Dev, also known as Ross D - NextJS, Typescript and Golang Web Developer.',
       },
     ],
     links: [
