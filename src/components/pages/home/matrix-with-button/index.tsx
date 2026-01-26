@@ -1,8 +1,8 @@
 import HyprBox from "@/components/hypr-box";
 import { useState } from "react";
 
-// import MatrixBg from "../matrix";
-// import MatrixGemini from "../matrix-gemini";
+// import Matrix from "../matrix"; // my version still wip
+import Matrix from "../matrix-gpt";
 
 import { showMatrixBtnStyle, btnContainerStyle, titleStyle, containerStyle } from "./styles";
 
@@ -23,12 +23,11 @@ export default function MatrixWithButton() {
                     </button>}
                 {isMatrixVisible &&
                     <h5 className={titleStyle}>
-                        {/* Wow. You actually pressed it. You crazy person, you. */}
-                        Coming soon...
+                        Wow. You actually pressed it. You crazy person, you.
                     </h5>}
             </div>
 
-            {/* {isMatrixVisible && <MatrixGemini />} */}
+            {isMatrixVisible && <Matrix />}
         </HyprBox>
     );
 };
