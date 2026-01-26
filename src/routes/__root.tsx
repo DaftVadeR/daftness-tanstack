@@ -6,6 +6,8 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { TanStackDevtools } from '@tanstack/react-devtools';
 
 import appCss from '../styles.css?url';
+import React from 'react';
+import Ascii from '@/components/ascii';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -36,6 +38,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* Mask based favicon images */}
         <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -65,6 +69,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 
         {/* Meta overrides */}
         <HeadContent />
+
+        <Ascii />
       </head>
       <body>
         {children}
