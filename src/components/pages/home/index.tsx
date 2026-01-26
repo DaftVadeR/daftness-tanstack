@@ -7,6 +7,7 @@ import {
 import Proficiencies from './proficiencies';
 import Tidbits from './tidbits';
 import Intro from './intro';
+
 import MatrixWithButton from './matrix-with-button';
 
 export const links = [

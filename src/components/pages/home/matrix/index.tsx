@@ -1,4 +1,5 @@
 import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 import { containerStyle, characterStyle, containerInnerStyle, triggerStyle, triggersContainerStyle, characterWrapperStyle, rowStyle } from "./styles";
 import { useEffect, useRef, useState } from "react";
@@ -18,18 +19,44 @@ import clsx from "clsx";
 
 const charactersToUse = '01'; // pregenerated for performance reasons
 const characterTrigger = 'すごい';
+const characterTriggerArr = characterTrigger.split(''); // cache so it only does it once
 
 const CHARACTER_WIDTH = 40;
 const CHARACTER_HEIGHT = 40;
 const TRIGGER_STAGGER = 0.2;
 const TRIGGER_ANIM_DURATION = 5;
+const NUM_TRAILS = 5;
+
+type Row = {
+    characters: Character[];
+};
+
+type Character = {
+    ref: null | React.RefObject<HTMLSpanElement | null>;
+    value: string;
+}
+
+type Trigger = {
+    ref: null | React.RefObject<HTMLDivElement | null>;
+    characters: Character[];
+}
+
+const getRandomTrigger = (cols: number, triggers: Trigger[]): Trigger | null => {
+    const newIndex = Math.floor(Math.random() * cols);
+
+    const indexes = Array.from(triggers.keys());
+
+    return indexes.indexOf(newIndex) !== -1 ? triggers[newIndex] : null;
+};
 
 export default function MatrixBg() {
     const [rows, setRows] = useState(0);
     const [cols, setCols] = useState(0);
+    const [triggersToQueue, setTriggersToQueue] = useState<Trigger[]>([]); // test data - also starts queue of text
 
     // dont want to do it more than once.
-    const [characters, setCharacters] = useState<string[][]>([]);
+    const [characters, setCharacters] = useState<Row[]>([]);
+    const [triggers, setTriggers] = useState<Trigger[]>([]);
 
     const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -56,35 +83,86 @@ export default function MatrixBg() {
     }, []);
 
     useEffect(() => {
-        if (rows > 0 && cols > 0) {
-            const newCharacters: string[][] = [];
 
-            for (let r = 0; r < rows; r++) {
-                const rowChars: string[] = [];
+        if (rows < 0 && cols < 0) {
+            return;
+        }
 
-                for (let c = 0; c < cols; c++) {
-                    const char = charactersToUse[Math.floor(Math.random() * charactersToUse.length)];
-                    rowChars.push(char);
-                }
+        const newCharacters: Row[] = [];
 
-                newCharacters.push(rowChars);
+        for (let r = 0; r < rows; r++) {
+            const rowChars: Character[] = [];
+
+            for (let c = 0; c < cols; c++) {
+                const char = charactersToUse[Math.floor(Math.random() * charactersToUse.length)];
+
+                rowChars.push({
+                    ref: null,
+                    value: char,
+                });
             }
 
-            console.log('Generated new characters for matrix background.', newCharacters);
-            setCharacters(newCharacters);
+            newCharacters.push({
+                characters: rowChars,
+            });
         }
+
+        const newTriggers: Trigger[] = [];
+
+        for (let t = 0; t < cols; t++) {
+            const triggerNew: Trigger = {
+                ref: null,
+                characters: characterTriggerArr.map((char) => ({
+                    ref: null,
+                    value: char,
+                })),
+            };
+
+            newTriggers.push(triggerNew);
+        }
+
+        setTriggers(newTriggers);
+
+        // also queue up trigger text - text that causes text it passes to animate in.
+        const newTriggersToQueue: Trigger[] = [];
+
+        for (let t = 0; t < NUM_TRAILS; t++) {
+            const newTrigger = getRandomTrigger(cols, newTriggers);
+
+            if (newTrigger) {
+                newTriggersToQueue.push(newTrigger);
+            }
+        }
+
+        setTriggersToQueue(newTriggersToQueue);
+
+        console.log('Generated new characters for matrix background.', newCharacters);
+        setCharacters(newCharacters);
     }, [rows, cols]);
 
     console.log(`ROWS: ${rows}, COLS: ${cols}`);
 
     useGSAP(() => {
-        for (let triggerIndex = 0; triggerIndex < cols; triggerIndex++) {
-            gsap.to('.animate-trigger', {
-                opacity: 1,
-                scale: 1,
+        if (!containerRef.current) {
+            return;
+        }
+
+        if (cols <= 0 || rows <= 0) {
+            return;
+        }
+
+        // remove triggers from queue
+
+        // start animations for queue
+        for (let t = 0; t < triggersToQueue.length; t++) {
+            const trigger = triggersToQueue[t];
+
+            if (!trigger.ref || !trigger.ref.current) {
+                continue;
+            }
+
+            gsap.to(trigger.ref, {
                 translateY: '100%',
-                visibility: 'visible',
-                display: 'inline-block',
                 duration: TRIGGER_ANIM_DURATION,
 
                 // ease: "power2.out", // kept linear as its most natural
@@ -107,14 +185,24 @@ export default function MatrixBg() {
                 //     setCursorPosition([relativeX, relativeY]);
                 // },
                 //
-                // onComplete: function() {
-                //     if (characterIndex >= word.characters.length - 1) {
-                //         onWordDone(wordIndex);
-                //     }
-                // },
-            }).delay(triggerIndex * TRIGGER_STAGGER);
+                onComplete: function() {
+                    trigger.ref?.current?.style.setProperty('transform', 'translateY(0)');
+                    trigger.ref?.current?.style.setProperty('visibility', 'none');
+
+                    setTriggersToQueue((trig) => {
+                        const newQueue = [...trig];
+
+                        if (newQueue.indexOf()) {
+                            return newQueue;
+                        }
+                    });
+                },
+            }).delay(TRIGGER_STAGGER);
+
         }
-    }, [containerRef, /*isActive, word, cursorRef, speed*/]);
+
+        setTriggersToQueue([]);
+    }, [containerRef, cols, rows, triggersToQueue]);
 
     return (
         <div
@@ -134,7 +222,7 @@ export default function MatrixBg() {
                             className={clsx(rowStyle)}
                             key={`matrix_row_${rowIndex}`}
                         >
-                            {row.map((char, colIndex) => {
+                            {row.characters.map((char, colIndex) => {
                                 return (
                                     <span
                                         key={`matrix_char_${rowIndex}_${colIndex}`}
@@ -143,9 +231,10 @@ export default function MatrixBg() {
                                             width: `${CHARACTER_WIDTH}px`,
                                             height: `${CHARACTER_HEIGHT}px`,
                                         }}
+                                        ref={char.ref}
                                     >
                                         <span className={clsx(characterStyle, 'animate-character')}>
-                                            {char}
+                                            {char.value}
                                         </span>
                                     </span>
                                 );
@@ -159,7 +248,7 @@ export default function MatrixBg() {
                 {Array.from({ length: cols }).map((_, colIndex) => {
                     return (
                         <div
-                            className={clsx(triggerStyle, 'animate-trigger')}
+                            className={clsx(triggerStyle, triggersToQueue.indexOf(colIndex) !== -1 ? 'animate-trigger' : '')}
                             style={{
                                 left: `${colIndex * CHARACTER_WIDTH}px`,
                             }}
