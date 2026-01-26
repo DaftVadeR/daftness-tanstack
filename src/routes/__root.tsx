@@ -40,14 +40,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* Mask based favicon images */}
+
         <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <meta name="apple-mobile-web-app-title" content="Daftness" />
-
-        {/* manifest.json exists too to appease standard defaults when the manifest meta tag is not read */}
+        <meta name="apple-mobile-web-app-title" content="Daft Dev" />
         <link rel="manifest" href="/site.webmanifest" />
 
         {/* Fonts */}
@@ -86,7 +84,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           ]}
         />
         <Scripts />
-        { /* Cloudflare Web Analytics */}
+        { /* Cloudflare Web Analytics - not needed right now */}
         {/* <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e32c25a87e9148198f60435cb9205a0b"}'></script> */}
         { /* End Cloudflare Web Analytics */}
       </body>

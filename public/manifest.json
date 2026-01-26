@@ -1,12 +1,7 @@
 {
-  "short_name": "Daftness",
-  "name": "Daftness",
+  "name": "Daft Dev",
+  "short_name": "Daft Dev",
   "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
     {
       "src": "/web-app-manifest-192x192.png",
       "sizes": "192x192",
@@ -20,8 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#9b82cf",
-  "background_color": "#655f83",
-  "start_url": ".",
+  "theme_color": "#000000",
+  "background_color": "#311764",
   "display": "standalone"
 }
