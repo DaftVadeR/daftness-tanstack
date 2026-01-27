@@ -11,9 +11,9 @@ import Brands from './brands';
 import MatrixWithButton from './matrix-with-button';
 
 export const links = [
-    { href: '#about-me', label: 'About Me' },
-    { href: '#languages-and-tools', label: 'What I Use' },
-    { href: '#experience', label: 'Work' },
+    { href: '#about-me', label: 'About' },
+    { href: '#languages-and-tools', label: 'Tools' },
+    { href: '#work-experience', label: 'Work' },
 ];
 
 export default function Home() {

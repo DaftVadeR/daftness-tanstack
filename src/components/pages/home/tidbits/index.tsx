@@ -13,15 +13,15 @@ export default function Tidbits() {
         >
             <HyprBox
                 size={SIZE_MD}
-                active1='rgba(190, 80, 30,0.8)'
-                active2='rgba(200, 0, 40, 0.8)'
+                active1='rgba(190, 80, 30, 1)'
+                active2='rgba(200, 0, 40, 1)'
                 className='flex-1'
             >
                 <AnimateTextStagger
                     prependIcon={
                         <Keyboard
                             size={42}
-                            color={'rgba(80, 40, 120, 0.8)'}
+                            color={'rgba(80, 40, 120, 1)'}
                         />
                     }
                 >
@@ -36,13 +36,13 @@ export default function Tidbits() {
             <HyprBox
                 size={SIZE_MD}
                 className='flex-1'
-                active1='rgba(30, 190, 30,0.8)'
-                active2='rgba(0, 30, 190, 0.8)'
+                active1='rgba(30, 190, 30, 1)'
+                active2='rgba(0, 30, 190, 1)'
             >
                 <AnimateTextStagger
                     prependIcon={
                         <SquareCode size={42}
-                            color={'rgba(200, 120, 50, 0.8)'}
+                            color={'rgba(200, 120, 50, 1)'}
                         />
                     }
                 >

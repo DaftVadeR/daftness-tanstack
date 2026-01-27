@@ -7,6 +7,7 @@ import { smallTitleStyle, subTitleStyle } from "../styles";
 import { SPEED_FAST } from "@/components/hypr-box/types";
 import { Logo } from "@/components/logo-list/types";
 import LogoList from "@/components/logo-list";
+import { Hammer, HammerIcon, Languages } from "lucide-react";
 
 const proficientLogos: Logo[] = [
     { name: 'JavaScript', filename: 'javascript.png' },
@@ -52,12 +53,17 @@ export default function Proficiencies() {
     return (
         <HyprBox
             className={proficienciesStyle}
-            active1='rgba(80, 100, 100, 0.8)'
-            active2='rgba(140, 20, 150, 0.8)'
+            active1='rgba(80, 100, 100, 1)'
+            active2='rgba(140, 20, 150, 1)'
             size={SPEED_FAST}
             id='languages-and-tools'
         >
-            <AnimateTextStagger>
+            <AnimateTextStagger prependIcon={
+                <HammerIcon
+                    size={42}
+                    color={'rgba(255, 200, 200, 1)'}
+                />
+            }>
                 <h3 className={subTitleStyle}>Languages, tools, and other things.</h3>
                 <h4 className={smallTitleStyle}>Proficient in:</h4>
             </AnimateTextStagger>

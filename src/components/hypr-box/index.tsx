@@ -11,8 +11,8 @@ import { ArrowDown } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ACTIVE_BORDER_COLOR = 'rgba(100, 40, 190, 0.8)';
-const ACTIVE_BORDER_COLOR2 = 'rgba(0, 0, 160, 0.8)';
+const ACTIVE_BORDER_COLOR = 'rgba(100, 40, 190, 1)';
+const ACTIVE_BORDER_COLOR2 = 'rgba(0, 0, 160, 1)';
 
 const INITIAL_BORDER_COLOR = 'rgba(255, 255, 255, 0.2)';
 const INITIAL_BORDER_COLOR2 = 'rgba(20, 20, 20, 0.2)';

@@ -55,15 +55,15 @@ export default function Brands() {
             id={links[2].href.substring(1)}
         >
             <HyprBox
-                active1='rgba(190, 80, 30,0.8)'
-                active2='rgba(200, 0, 40, 0.8)'
+                active1='rgba(190, 80, 30, 1)'
+                active2='rgba(200, 0, 40, 1)'
                 className='flex-1'
             >
                 <AnimateTextStagger
                     prependIcon={
                         <Pen
                             size={42}
-                            color={'rgba(80, 40, 120, 0.8)'}
+                            color={'rgba(80, 40, 120, 1)'}
                         />
                     }
                 >

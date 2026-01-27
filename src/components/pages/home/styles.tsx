@@ -25,6 +25,6 @@ export const containerStyle = twMerge(`
 `);
 
 export const splitterStyle = twMerge(`
-   md:flex md:flex-row md:space-x-16 text-left 
+   lg:flex lg:flex-row lg:space-x-16 text-left 
 `);
 

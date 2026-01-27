@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 // width will change via an inline style.
 export const listStyle = twMerge(`
    before:content-[''] before:block before:bg-purple-700 before:rounded before:w-0 before:h-1 before:transtion-all before:duration-800 before:translate-y-0
-   before:absolute before:left-0 before:bottom-3 before:z-3 before:pointer-events-none inline-flex mt-0 mb-24 md:mt-30 md:mb-12 relative bg-white
+   before:absolute before:left-0 before:bottom-3 before:z-3 before:pointer-events-none inline-flex mt-0 mb-24 md:mt-20 md:mb-12 relative bg-white
    p-4 pb-4 border rounded-3xl flex-nowrap flex-row justify-center items-center 
 `);
 
