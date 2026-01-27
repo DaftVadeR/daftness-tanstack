@@ -59,7 +59,7 @@ export default function WordSection({
                     char.ref.current.style.visibility = 'visible';
 
                     // using offset as simpler - rect was giving issues due to not being relative.
-                    const relativeX = char.ref.current.offsetLeft + char.ref.current.offsetWidth * 3;
+                    const relativeX = char.ref.current.offsetLeft + char.ref.current.offsetWidth * 2;
                     const relativeY = char.ref.current.offsetTop;
 
                     setCursorPosition([relativeX, relativeY]);

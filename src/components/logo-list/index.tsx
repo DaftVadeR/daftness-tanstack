@@ -9,8 +9,8 @@ export default function LogoList({ logos }: { logos: Logo[] }) {
             {logos.map((logo, index) => (
                 <li key={index} className={clsx(logoListItemStyle)}>
                     <img
-                        width={48}
-                        height={48}
+                        width={60}
+                        height={60}
                         alt={logo.name}
                         className={logoStyle}
                         src={`/logos/${logo.filename}`}

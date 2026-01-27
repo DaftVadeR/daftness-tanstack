@@ -7,13 +7,13 @@ import {
 import Intro from './intro';
 import Tidbits from './tidbits';
 import Proficiencies from './proficiencies';
-// import Brands from './brands';
+import Brands from './brands';
 import MatrixWithButton from './matrix-with-button';
 
 export const links = [
     { href: '#about-me', label: 'About Me' },
     { href: '#languages-and-tools', label: 'What I Use' },
-    { href: '#experience', label: 'Worked With' },
+    { href: '#experience', label: 'Work' },
 ];
 
 export default function Home() {
@@ -23,7 +23,7 @@ export default function Home() {
                 <Intro />
                 <Tidbits />
                 <Proficiencies />
-                {/* <Brands /> */}
+                <Brands />
                 <MatrixWithButton />
             </div>
         </Layout>

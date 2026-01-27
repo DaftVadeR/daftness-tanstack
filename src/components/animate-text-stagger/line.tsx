@@ -33,6 +33,7 @@ export default function Line(
     }) {
     const [isMounted, setIsMounted] = useState(false);
     const [activeWord, setActiveWord] = useState(-1);
+    const [isLineDone, setIsLineDone] = useState(false);
 
     const containerRef = useRef<HTMLDivElement>(null);
     const cursorRef = useRef<HTMLSpanElement>(null);
@@ -52,6 +53,7 @@ export default function Line(
 
         if (newIndex > line.words.length - 1) {
             onLineDone();
+            setIsLineDone(true);
         }
     }, [activeWord, line.words.length, onLineDone]);
 
@@ -80,7 +82,7 @@ export default function Line(
                             setCursorPosition={setCursorPosition}
                             speed={speed}
                         />)}
-                {isMounted && isActive && cursorPosition[0] !== 0 && lineIndex < line.words.length - 1 &&
+                {!isLineDone && isMounted && isActive && cursorPosition[0] !== 0 && lineIndex < line.words.length - 1 &&
                     <CursorBlink
                         cursorRef={cursorRef}
                         position={cursorPosition}

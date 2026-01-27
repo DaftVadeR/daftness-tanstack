@@ -1,11 +1,54 @@
 import HyprBox from "@/components/hypr-box";
 import { links } from "..";
-import { containerStyle, subTitleStyle } from "../styles";
+import { subTitleStyle } from "../styles";
+import { containerStyle } from "./styles";
 import AnimateTextStagger from "@/components/animate-text-stagger";
 import { Pen } from "lucide-react";
 import LogoList from "@/components/logo-list";
+import { SPEED_FAST, SPEED_MID } from "@/components/animate-text-stagger/types";
+
+const logos = [
+    {
+        name: 'Samsung',
+        filename: 'samsung.png',
+    },
+    {
+        name: 'HIVSA',
+        filename: 'hivsa.png',
+    },
+    {
+        name: 'SAB',
+        filename: 'sab.png',
+    },
+    {
+        name: 'Dis-Chem',
+        filename: 'dischem.png',
+    },
+    {
+        name: 'Tiger Brands',
+        filename: 'tigerbrands.png',
+    },
+    {
+        name: 'Standard Bank',
+        filename: 'stdbank.png',
+    },
+    {
+        name: 'SIOPSA',
+        filename: 'siopsa.png',
+    },
+    {
+        name: 'All Life',
+        filename: 'alllife.png',
+    },
+    {
+        name: 'Choma',
+        filename: 'choma.png',
+    },
+];
 
 export default function Brands() {
+    console.log('brands', logos);
+
     return (
         <div
             className={containerStyle}
@@ -27,13 +70,11 @@ export default function Brands() {
                     <h3 className={subTitleStyle}>
                         I've worked with many brands
                     </h3>
-                    <LogoList logos={[
-                        {
-                            name: 'Test',
-                            filename: 'test.svg',
-                        },
-                    ]} />
                 </AnimateTextStagger>
+
+                <LogoList
+                    logos={logos}
+                />
             </HyprBox>
         </div>
     );
