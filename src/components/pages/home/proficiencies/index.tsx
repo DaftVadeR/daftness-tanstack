@@ -1,14 +1,12 @@
-import clsx from "clsx";
-
 import AnimateTextStagger from "@/components/animate-text-stagger";
 import HyprBox from "@/components/hypr-box";
 
-import { Logo } from "./types";
-
-import { logoListItemStyle, logoListStyle, logoStyle, proficienciesStyle } from "./styles";
+import { proficienciesStyle } from "./styles";
 import { smallTitleStyle, subTitleStyle } from "../styles";
 
 import { SPEED_FAST } from "@/components/hypr-box/types";
+import { Logo } from "@/components/logo-list/types";
+import LogoList from "@/components/logo-list";
 
 const proficientLogos: Logo[] = [
     { name: 'JavaScript', filename: 'javascript.png' },
@@ -49,25 +47,6 @@ const beginnersLogos: Logo[] = [
     { name: 'Monogame', filename: 'monogame.svg' },
     { name: 'Opencode', filename: 'opencode.svg' },
 ];
-
-const LogoList = ({ logos }: { logos: Logo[] }) => {
-    return (
-        <ul className={logoListStyle}>
-            {logos.map((logo, index) => (
-                <li key={index} className={clsx(logoListItemStyle)}>
-                    <img
-                        width={48}
-                        height={48}
-                        alt={logo.name}
-                        className={logoStyle}
-                        src={`/logos/${logo.filename}`}
-                        aria-label={logo.name}
-                    />
-                </li>
-            ))}
-        </ul>
-    );
-};
 
 export default function Proficiencies() {
     return (
