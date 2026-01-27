@@ -13,7 +13,6 @@ export default function WordSection({
     onWordDone,
     isActive,
     containerRef,
-    cursorRef,
     setCursorPosition,
 }: {
     speed: SPEED,
@@ -22,10 +21,14 @@ export default function WordSection({
     lineIndex: number,
     isActive: boolean,
     containerRef: null | RefObject<HTMLDivElement | null>,
-    cursorRef: null | RefObject<HTMLSpanElement | null>,
     onWordDone: (wordIndex: number) => void,
     setCursorPosition: (pos: [number, number]) => void,
 }) {
+    // useEffect(() => {
+    //     const charRect = char.ref.current.getBoundingClientRect();
+    //
+    // }, [word.ref]);
+    //
     useGSAP(() => {
         // only start animations when active and refs are set.
         if (!isActive || !containerRef?.current) {
@@ -34,14 +37,6 @@ export default function WordSection({
 
         if (!word.ref) {
             return; // ref hasnt been set yet for some words.
-        }
-
-        for (let c = 0; c < word.characters.length; c++) {
-            const char = word.characters[c];
-
-            if (!char.ref) {
-                return; // refs havent been set yet for some characters.
-            }
         }
 
         word.characters.forEach((char, characterIndex) => {
@@ -63,10 +58,8 @@ export default function WordSection({
                     char.ref.current.style.display = 'inline-block';
                     char.ref.current.style.visibility = 'visible';
 
-                    const charRect = char.ref.current.getBoundingClientRect();
-
                     // using offset as simpler - rect was giving issues due to not being relative.
-                    const relativeX = char.ref.current.offsetLeft + charRect.width * 3;
+                    const relativeX = char.ref.current.offsetLeft + char.ref.current.offsetWidth * 3;
                     const relativeY = char.ref.current.offsetTop;
 
                     setCursorPosition([relativeX, relativeY]);
@@ -79,7 +72,7 @@ export default function WordSection({
                 },
             }).delay(characterIndex * SPEED_MAP[speed]);
         });
-    }, [containerRef, isActive, word, cursorRef, speed]);
+    }, [isActive]);
 
     return (
         <span

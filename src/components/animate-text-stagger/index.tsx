@@ -10,9 +10,11 @@
 //
 // None of the comments are typed by ChatGPT, be it this one, or the ones below.
 
-import { Children, ElementType, isValidElement, useState, ReactNode, useRef } from 'react';
+import { Children, ElementType, isValidElement, useState, ReactNode, useRef, useMemo } from 'react';
 import { getDirectText } from '@/util/react-nodes';
 import { SPEED, SPEED_FASTEST, TextLine } from './types';
+
+import { useResizePause } from "./use-resize-pause";
 
 import Line from './line';
 import { useGSAP } from '@gsap/react';
@@ -110,13 +112,17 @@ export default function AnimateTextStagger({
         };
     }, [containerRef]);
 
+    const isResizing = useResizePause(containerRef);
 
     // Run it on the server in function body so that it's available on SSR. 
     // Not perfectly efficient, but good middleground as server-first is ideal.
     //
     // i normalize children to make sure we have an array of lines, and within each, an array of characters comprising each word.
     // I'm a fan of formalizing the data structure using custom types, to ensure that the data is structured adequately for the JSX so it's simpler.
-    const lines: TextLine[] = normalizeChildrenToLines(childrenNotNormalized);
+    const lines: TextLine[] = useMemo(
+        () => normalizeChildrenToLines(childrenNotNormalized),
+        [childrenNotNormalized]
+    );
 
     return (
         <div className={clsx(containerStyle)} ref={containerRef}>
@@ -126,7 +132,7 @@ export default function AnimateTextStagger({
                 return (
                     <Line
                         icon={lineIndex === 0 ? prependIcon : undefined}
-                        isActive={inViewport && lineIndex === step}
+                        isActive={!isResizing && inViewport && lineIndex === step}
                         line={line}
                         lineIndex={lineIndex}
                         speed={speed}

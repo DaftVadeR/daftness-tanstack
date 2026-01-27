@@ -78,7 +78,6 @@ export default function Line(
                             isActive={isActive && (activeWord >= wordIndex)}
                             containerRef={containerRef}
                             setCursorPosition={setCursorPosition}
-                            cursorRef={cursorRef}
                             speed={speed}
                         />)}
                 {isMounted && isActive && cursorPosition[0] !== 0 && lineIndex < line.words.length - 1 &&

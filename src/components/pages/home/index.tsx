@@ -7,7 +7,7 @@ import {
 import Intro from './intro';
 import Tidbits from './tidbits';
 import Proficiencies from './proficiencies';
-import Brands from './brands';
+// import Brands from './brands';
 import MatrixWithButton from './matrix-with-button';
 
 export const links = [
@@ -23,7 +23,7 @@ export default function Home() {
                 <Intro />
                 <Tidbits />
                 <Proficiencies />
-                <Brands />
+                {/* <Brands /> */}
                 <MatrixWithButton />
             </div>
         </Layout>

@@ -77,17 +77,17 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
-        <TanStackDevtools
-          config={{
-            position: 'bottom-right',
-          }}
-          plugins={[
-            {
-              name: 'Tanstack Router',
-              render: <TanStackRouterDevtoolsPanel />,
-            },
-          ]}
-        />
+        {/* <TanStackDevtools */}
+        {/*   config={{ */}
+        {/*     position: 'bottom-right', */}
+        {/*   }} */}
+        {/*   plugins={[ */}
+        {/*     { */}
+        {/*       name: 'Tanstack Router', */}
+        {/*       render: <TanStackRouterDevtoolsPanel />, */}
+        {/*     }, */}
+        {/*   ]} */}
+        {/* /> */}
         <Scripts />
         { /* Cloudflare Web Analytics - not needed right now */}
         {/* <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e32c25a87e9148198f60435cb9205a0b"}'></script> */}
