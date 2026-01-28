@@ -3,7 +3,11 @@
 This is a site I made so I have something I can send ppl if they need a quick rundown of what I do.
 
 ![Screenshot 1](/screenshots/Screenshot_28-Jan_09-57-26_31217.png)
+
+
 ![Screenshot 2](/screenshots/Screenshot_28-Jan_09-57-52_10435.png)
+
+
 ![Screenshot 3](/screenshots/Screenshot_28-Jan_09-58-22_16024.png)
 
 
