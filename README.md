@@ -1,6 +1,6 @@
 # A DafT personal Website.
 
-This is a site I made so I have something I can send ppl if they need a quick rundown of what I do.
+This is a site I made so I have something I can send ppl if they need a quick rundown of what I do. It uses GSAP for animations, Tanstack Start for the framework, and Tailwind and TWMerge for styling.
 
 ![Screenshot 1](/screenshots/Screenshot_28-Jan_09-57-26_31217.png)
 
