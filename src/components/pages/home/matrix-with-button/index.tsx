@@ -1,4 +1,4 @@
-import HyprBox from "@/components/hypr-box";
+import HyprBox from "@/components/ui/hypr-box";
 import { useState } from "react";
 
 // import Matrix from "../matrix"; // my version still wip

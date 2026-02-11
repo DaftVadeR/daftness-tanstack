@@ -14,7 +14,7 @@ import { Children, ElementType, isValidElement, useState, ReactNode, useRef, use
 import { getDirectText } from '@/util/react-nodes';
 import { SPEED, SPEED_FASTEST, TextLine } from './types';
 
-import { useResizePause } from "./use-resize-pause";
+import { useResizePause } from "../use-resize-pause";
 
 import Line from './line';
 import { useGSAP } from '@gsap/react';

@@ -1,3 +1,7 @@
+// Human written comment. AI written code.
+// AI-created resize hook for use with delaying resize events using debounce. A duplication in
+// this type of logic was noticed and so a simpler reusable abstraction was made.
+
 import { useEffect, useMemo, useState } from "react";
 import debounce from "lodash.debounce";
 
@@ -7,7 +11,6 @@ export function useResizePause(
 ) {
     const [isResizing, setIsResizing] = useState(false);
 
-    // Debounced "resize end" handler
     const onResizeEnd = useMemo(
         () =>
             debounce(() => {
@@ -21,10 +24,8 @@ export function useResizePause(
         if (!el) return;
 
         const observer = new ResizeObserver(() => {
-            // fire immediately on any resize
             setIsResizing(true);
 
-            // debounce end-of-resize
             onResizeEnd();
         });
 
@@ -32,7 +33,7 @@ export function useResizePause(
 
         return () => {
             observer.disconnect();
-            onResizeEnd.cancel(); // important cleanup
+            onResizeEnd.cancel();
         };
     }, [targetRef, onResizeEnd]);
 

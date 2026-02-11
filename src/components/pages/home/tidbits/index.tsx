@@ -1,9 +1,9 @@
-import HyprBox from "@/components/hypr-box";
+import HyprBox from "@/components/ui/hypr-box";
 import { paragraphStyle, splitterStyle, subTitleStyle } from "../styles";
-import AnimateTextStagger from "@/components/animate-text-stagger";
+import AnimateTextStagger from "@/components/ui/animate-text-stagger";
 import { Keyboard, SquareCode } from "lucide-react";
 import { links } from "..";
-import { SIZE_MD } from "@/components/hypr-box/types";
+import { SIZE_MD } from "@/components/ui/hypr-box/types";
 
 export default function Tidbits() {
     return (

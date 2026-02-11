@@ -7,7 +7,7 @@ import { TanStackDevtools } from '@tanstack/react-devtools';
 
 import appCss from '../styles.css?url';
 import React from 'react';
-import Ascii from '@/components/ascii';
+import Ascii from '@/components/ui/ascii';
 
 export const Route = createRootRoute({
   head: () => ({

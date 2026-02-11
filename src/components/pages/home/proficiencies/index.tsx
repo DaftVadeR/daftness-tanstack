@@ -1,12 +1,12 @@
-import AnimateTextStagger from "@/components/animate-text-stagger";
-import HyprBox from "@/components/hypr-box";
+import AnimateTextStagger from "@/components/ui/animate-text-stagger";
+import HyprBox from "@/components/ui/hypr-box";
 
 import { proficienciesStyle } from "./styles";
 import { smallTitleStyle, subTitleStyle } from "../styles";
 
-import { SPEED_FAST } from "@/components/hypr-box/types";
-import { Logo } from "@/components/logo-list/types";
-import LogoList from "@/components/logo-list";
+import { SPEED_FAST } from "@/components/ui/hypr-box/types";
+import { Logo } from "@/components/ui/logo-list/types";
+import LogoList from "@/components/ui/logo-list";
 import { Hammer, HammerIcon, Languages } from "lucide-react";
 
 const proficientLogos: Logo[] = [

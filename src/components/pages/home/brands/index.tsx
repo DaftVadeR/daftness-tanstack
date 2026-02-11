@@ -1,11 +1,11 @@
-import HyprBox from "@/components/hypr-box";
+import HyprBox from "@/components/ui/hypr-box";
 import { links } from "..";
 import { subTitleStyle } from "../styles";
 import { containerStyle } from "./styles";
-import AnimateTextStagger from "@/components/animate-text-stagger";
+import AnimateTextStagger from "@/components/ui/animate-text-stagger";
 import { Pen } from "lucide-react";
-import LogoList from "@/components/logo-list";
-import { SPEED_FAST, SPEED_MID } from "@/components/animate-text-stagger/types";
+import LogoList from "@/components/ui/logo-list";
+// import { SPEED_FAST, SPEED_MID } from "@/components/ui/animate-text-stagger/types";
 
 const logos = [
     {

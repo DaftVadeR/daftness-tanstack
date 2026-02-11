@@ -1,7 +1,7 @@
 import { twMerge } from 'tailwind-merge';
 
 export const containerStyle = twMerge(`
-  px-20 pb-20 bg-black text-white text-center   
+  px-20 pb-20 text-white text-center   
 `);
 
 // Write your styles in `styled` tag

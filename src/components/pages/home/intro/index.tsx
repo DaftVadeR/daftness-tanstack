@@ -1,10 +1,10 @@
-import AnimateTextStagger from "@/components/animate-text-stagger";
-import HyprBox from "@/components/hypr-box";
+import AnimateTextStagger from "@/components/ui/animate-text-stagger";
+import HyprBox from "@/components/ui/hypr-box";
 import LinkSelector from "../link-selector";
 import { paragraphStyle, smallParagraphStyle, titleStyle } from "../styles";
 import clsx from "clsx";
 import { links } from "..";
-import { SPEED_SLOW } from "@/components/hypr-box/types";
+import { SPEED_SLOW } from "@/components/ui/hypr-box/types";
 
 export default function Intro() {
     return (

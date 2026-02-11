@@ -1,9 +1,9 @@
 import { containerStyle, paragraphStyle, titleStyle } from '../home/styles';
 
 import Layout from '../../layouts/main';
-import AnimateTextStagger from '@/components/animate-text-stagger';
-import AnimateTextGsap from '@/components/animate-text-gsap';
-import AnimateText from '@/components/animate-text';
+import AnimateTextStagger from '@/components/ui/animate-text-stagger';
+import AnimateTextGsap from '@/components/ui/animate-text-gsap';
+import AnimateText from '@/components/ui/animate-text';
 
 export default function Home() {
     return (
