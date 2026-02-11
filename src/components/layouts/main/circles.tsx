@@ -108,7 +108,7 @@ export default function Circles() {
               style={{
                 height: circle.size,
                 width: circle.size,
-                transform: `translateX(${isRight ? '-75%' : '-75%'}) translateY(${isBottom ? '-50%' : '-50%'})`,
+                transform: `translateX(-50%) translateY(-50%)`,
               }}
             />
           </div>

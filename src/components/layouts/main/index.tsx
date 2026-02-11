@@ -20,6 +20,8 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         }
     }, [isResizing]);
 
+    const canWorkAndFitViewFrame = size[1] > 0 && size[0] > 800;
+
     return (
         <div className={containerStyle} ref={layoutRef}>
             <div className={layoutContentWrapperStyle}>
@@ -33,7 +35,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                     <Footer />
                 </div>
             </div>
-            {size[1] > 0 && // height
+            {canWorkAndFitViewFrame &&
                 <Circles />}
         </div>
     );
