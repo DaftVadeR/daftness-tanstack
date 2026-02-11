@@ -88,8 +88,8 @@ export default function Circles() {
   return (
     <div className={clsx(circleContainerStyle)}>
       {circles.map((circle, i) => {
-        const isRight = circle.left === '100%';
-        const isBottom = circle.top === '100%';
+        {/* const isRight = circle.left === '100%'; */ }
+        {/* const isBottom = circle.top === '100%'; */ }
 
         const customStyles: CSSProperties = {
           top: circle.top,
