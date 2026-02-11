@@ -1,11 +1,11 @@
 import { twMerge } from "tailwind-merge";
 
 export const logoStyle = twMerge(`
-   object-contain h-28 w-28 md:h-36 md:w-36 block bg-white/5 p-4
+   object-contain h-28 w-28 md:h-36 md:w-36 block bg-black/5 p-4 hover:bg-[#22224466] transition-all duration-500
 `);
 
 export const logoListItemStyle = twMerge(`
-   inline-flex mb-4 md:mb-6 basis-1/2 md:basis-auto mr-0 md:mr-4 justify-center items-center
+   inline-flex mb-4 md:mb-6 basis-1/2 md:basis-auto mr-0 md:mr-4 justify-center items-center cursor-pointer 
 `);
 
 export const logoListStyle = twMerge(`
