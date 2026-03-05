@@ -1,3 +1,5 @@
+"use client";
+
 import { MouseEvent, useCallback, useEffect, useState } from 'react';
 import { linkStyle, listItemStyle, listStyle } from './styles';
 import { isServer } from '@/util/client';

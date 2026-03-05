@@ -1,66 +1,36 @@
-# use the official Bun image
-# see all versions at https://hub.docker.com/r/oven/bun/tags
 FROM oven/bun:1 AS base
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# install dependencies into temp directory
-# this will cache them and speed up future builds
-FROM base AS install
-RUN mkdir -p /temp/dev
-COPY package.json bun.lock /temp/dev/
-RUN cd /temp/dev && bun install --frozen-lockfile
+# Install dependencies
+FROM base AS deps
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile
 
-# install with --production (exclude devDependencies)
-RUN mkdir -p /temp/prod
-COPY package.json bun.lock /temp/prod/
-RUN cd /temp/prod && bun install --frozen-lockfile --production
-
-# copy node_modules from temp directory
-# then copy all (non-ignored) project files into the image
-FROM base AS prerelease
-COPY --from=install /temp/dev/node_modules node_modules
+# Build the application
+FROM base AS builder
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# # [optional] tests & build
+ENV NEXT_TELEMETRY_DISABLED=1
+RUN bun run build
+
+# Production image
+FROM base AS runner
+WORKDIR /app
+
 ENV NODE_ENV=production
-# RUN bun test
-# RUN bun run build
-RUN bun --bun vite build
-# RUN ls -la
-# RUN pwd
-# RUN ls -la .output
-# COPY .output .
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV HOSTNAME=0.0.0.0
+ENV PORT=3000
 
-# copy production dependencies and source code into final image
-FROM base AS release
-
-# RUN ls -la
-
-COPY --from=install /temp/prod/node_modules node_modules
-# COPY --from=prerelease /usr/src/app/index.ts .
-COPY --from=prerelease /usr/src/app/package.json .package.json
-COPY --from=prerelease /usr/src/app/.output .output
-
-# RUN ls -la
-
-# run the app
+# Don't run as root
 USER bun
-EXPOSE 3000/tcp
 
-# ENTRYPOINT [ "bun", "run", "start-server.ts" ]
+# Copy standalone output
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public ./public
 
-# RUN ls -la
+EXPOSE 3000
 
-#CMD ["bun", "run", "start"]
-# CMD ["bun", "run", ".output/server/index.mjs"]
-
-# ENTRYPOINT [  "bun", "run", "start" ] 
-# ENTRYPOINT [  "bun", "run", ".output/server/index.mjs" ] 
-
-ENV NODE_ENV=production
-ENV NITRO_HOST=0.0.0.0
-ENV NITRO_PORT=3000
-
-ENV BUN_RUNTIME_TRANSPILER_CACHE_PATH=0
-
-ENTRYPOINT ["bun", "--bun", "run", ".output/server/index.mjs"]
+CMD ["bun", "server.js"]

@@ -1,3 +1,5 @@
+"use client";
+
 import HyprBox from "@/components/ui/hypr-box";
 import { useState } from "react";
 

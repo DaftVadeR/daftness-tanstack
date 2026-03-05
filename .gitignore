@@ -5,12 +5,19 @@ dist-ssr
 *.local
 count.txt
 .env
+
+# Next.js
+.next/
+out/
+
+# Old TanStack/Nitro (can remove after migration confirmed)
 .nitro
 .tanstack
 .wrangler
 .output
 .vinxi
+
 todos.json
 
-#nvim
+# nvim
 .fuse_hidden*

@@ -9,16 +9,15 @@
 		"ignoreUnknown": false,
 		"includes": [
 			"**/src/**/*",
+			"**/app/**/*",
 			"**/.vscode/**/*",
-			"**/index.html",
-			"**/vite.config.ts",
-			"!**/src/routeTree.gen.ts",
-			"!**/src/styles.css"
+			"!**/app/globals.css"
 		]
 	},
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab",
+		"indentWidth": 4,
 		"semicolons": "always"
 	},
 	"assist": { "actions": { "source": { "organizeImports": "on" } } },

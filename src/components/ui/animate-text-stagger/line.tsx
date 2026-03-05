@@ -1,3 +1,5 @@
+"use client";
+
 // It was fun using <line.tag/> to dynamically render different HTML elements per line. 
 // I've not done it before in TS.
 

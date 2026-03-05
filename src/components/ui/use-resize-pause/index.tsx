@@ -1,3 +1,5 @@
+"use client";
+
 // Human written comment. AI written code.
 // AI-created resize hook for use with delaying resize events using debounce. A duplication in
 // this type of logic was noticed and so a simpler reusable abstraction was made.

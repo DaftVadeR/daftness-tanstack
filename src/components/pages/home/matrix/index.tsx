@@ -1,3 +1,6 @@
+// @ts-nocheck — WIP file, contains incomplete logic
+"use client";
+
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 

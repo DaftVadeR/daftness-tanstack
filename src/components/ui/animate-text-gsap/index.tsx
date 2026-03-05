@@ -1,3 +1,5 @@
+"use client";
+
 // Version 2. I had a discussion with ChatGPT regarding how to use GSAP for such a situation.
 //
 // It naturally gave me an overengineered solution for the GSAP calls, but I managed to get it working, 

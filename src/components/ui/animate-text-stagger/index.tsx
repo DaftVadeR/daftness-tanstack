@@ -1,3 +1,5 @@
+"use client";
+
 // This was the third attempt. Instead of relying on ChatGPT initially, I decided to do some research and found the stagger effect in the GSAP docs.
 // This worked, but had some limitations with the React GSAP API, so we changed it using delay().
 //

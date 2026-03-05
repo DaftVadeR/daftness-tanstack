@@ -1,3 +1,5 @@
+"use client";
+
 import { circleStyle, circleContainerStyle, circleRowStyle, col1Style, col2Style } from './styles';
 import { CSSProperties, useEffect, useState } from "react";
 import clsx from "clsx";
